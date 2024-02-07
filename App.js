@@ -1,21 +1,29 @@
+import { useState, useEffect, React } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
 import Calculator from "./components/Calculator";
 import * as Font from "expo-font";
 
-async function loadFonts() {
-	await Font.loadAsync({
-		seg7: require("./assets/Segment7Standard.otf"),
-	});
-}
-loadFonts();
-
 export default function App() {
+	const [fontLoaded, setFontLoaded] = useState(false);
+
+	useEffect(() => {
+		const loadFonts = async () => {
+			await Font.loadAsync({
+				seg7: require("./assets/Segment7Standard.otf"),
+			});
+			setFontLoaded(true);
+		};
+		loadFonts();
+	}, []);
+
 	return (
-		<View style={styles.container}>
-			<StatusBar hidden={false} style='auto' />
-			<Calculator />
-		</View>
+		fontLoaded && (
+			<View style={styles.container}>
+				<StatusBar hidden={false} style='auto' />
+				<Calculator />
+			</View>
+		)
 	);
 }
 
