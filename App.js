@@ -1,6 +1,14 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
 import Calculator from "./components/Calculator";
+import * as Font from "expo-font";
+
+async function loadFonts() {
+	await Font.loadAsync({
+		seg7: require("./assets/Segment7Standard.otf"),
+	});
+}
+loadFonts();
 
 export default function App() {
 	return (

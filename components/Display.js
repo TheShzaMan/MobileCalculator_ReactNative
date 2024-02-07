@@ -5,8 +5,8 @@ import DigitalNum from "./DigitalNum";
 const Display = ({}) => {
 	return (
 		<View style={styles.screen}>
-			{/* <Text style={styles.displayText}>888.88887</Text> */}
-			<DigitalNum />
+			<Text style={styles.displayText}>88888888</Text>
+			{/* <DigitalNum /> */}
 		</View>
 	);
 };
@@ -22,8 +22,10 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 10,
 	},
 	displayText: {
-		fontSize: 70,
+		fontSize: 72,
+		fontFamily: "seg7",
 		textAlign: "right",
+		color: "lightsteelblue",
 	},
 });
 export default Display;

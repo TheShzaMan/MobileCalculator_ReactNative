@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 
 const DigiParts = () => {
-	const emptyDigit = () => {
+	const EmptyDigit = () => {
 		<View style={styles.emptyDigit}>
 			<View style={styles.topOff}></View>
 			<View
@@ -31,7 +31,7 @@ const DigiParts = () => {
 			<View style={styles.bottomOff}></View>
 		</View>;
 	};
-	return emptyDigit();
+	return <EmptyDigit />;
 };
 const styles = StyleSheet.create({
 	emptyDigit: {
