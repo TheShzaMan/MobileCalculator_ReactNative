@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, StyleSheet, View } from "react-native";
-import DigitalNum from "";
+import DigitalNum from "./DigitalNum";
 
 const Display = ({}) => {
 	return (
@@ -17,7 +17,9 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderColor: "white",
 		backgroundColor: "lightskyblue",
-		padding: 5,
+		justifyContent: "center",
+		alignItems: "flex-end",
+		paddingHorizontal: 10,
 	},
 	displayText: {
 		fontSize: 70,

@@ -1,14 +1,8 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 
-const DigitalNum = ({}) => {
-	return <View style={styles.emptyDigit}></View>;
+const DigitalNum = () => {
+	return <DigiParts />;
 };
 
-const styles = StyleSheet.create({
-	emptyDigit: {
-		borderWidth: 3,
-		borderColor: "lightsteelblue",
-	},
-});
 export default DigitalNum;
