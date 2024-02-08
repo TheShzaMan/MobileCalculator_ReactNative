@@ -1,13 +1,13 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Pressable } from "react-native";
 
-export default function SolarCell() {
+export default function SolarCell({ fadeOut, fadeIn }) {
 	return (
-		<View style={styles.cell}>
+		<Pressable onPressIn={fadeOut} onPressOut={fadeIn} style={styles.cell}>
 			<View style={styles.sq}></View>
 			<View style={styles.sq}></View>
 			<View style={styles.sq}></View>
-		</View>
+		</Pressable>
 	);
 }
 const styles = StyleSheet.create({
@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 		width: "50%",
 		alignSelf: "flex-end",
-		borderStyle: "inset",
 		flexDirection: "row",
 	},
 	sq: {

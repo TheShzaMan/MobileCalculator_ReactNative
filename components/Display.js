@@ -1,20 +1,23 @@
 import { useState, React, useEffect } from "react";
-import { Text, StyleSheet, View, TextInput } from "react-native";
+import { Text, StyleSheet, View, TextInput, Animated } from "react-native";
 import DigitalNum from "./DigitalNum";
 
-const Display = ({}) => {
+const Display = ({ digitOpacity }) => {
 	const [digitsDisplay, setDigitsDisplay] = useState(757.9);
-
-	console.log(digitsDisplay);
 
 	return (
 		<View style={styles.screen}>
 			<Text numberOfLines={1} style={styles.bgText}>
 				8.8.8.8.8.8.8.8
 			</Text>
-			<Text numberOfLines={1} style={styles.inputText}>
+
+			<Animated.Text
+				id='digitsDisplay'
+				numberOfLines={1}
+				style={[styles.inputText, { opacity: digitOpacity }]}
+			>
 				{digitsDisplay}
-			</Text>
+			</Animated.Text>
 		</View>
 	);
 };
