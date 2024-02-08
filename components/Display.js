@@ -24,7 +24,6 @@ const Display = ({ digitOpacity }) => {
 
 const styles = StyleSheet.create({
 	screen: {
-		flex: 1,
 		borderWidth: 1,
 		borderLeftColor: "gray",
 		borderLeftWidth: 8,
@@ -34,17 +33,18 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 4,
 		borderRightColor: "lightsteelblue",
 		borderRightWidth: 2,
-		backgroundColor: "lightskyblue",
+		backgroundColor: "lightgray",
 		justifyContent: "center",
 		alignItems: "flex-end",
 		paddingHorizontal: 5,
+		height: "18%",
 	},
 	bgText: {
 		position: "absolute",
 		fontSize: 72,
 		fontFamily: "seg7",
 		textAlign: "right",
-		color: "#7894",
+		color: "#7893",
 	},
 	inputText: {
 		position: "absolute",

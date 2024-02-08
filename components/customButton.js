@@ -11,18 +11,19 @@ export default function RoundButton({ onPress, text, bgColor, textColor }) {
 					borderColor: textColor,
 					padding: 3,
 					backgroundColor: bgColor,
-					height: 70,
-					width: 70,
+					height: 55,
+					width: 65,
 					justifyContent: "center",
+					margin: 5,
 				}}
 			>
 				<Text
 					style={{
-						lineHeight: 70,
+						lineHeight: 55,
 						textAlign: "center",
 						color: textColor,
 						textTransform: "uppercase",
-						fontSize: 32,
+						fontSize: 24,
 					}}
 				>
 					{text}

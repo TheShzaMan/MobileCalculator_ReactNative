@@ -35,12 +35,18 @@ const Calculator = ({}) => {
 
 const styles = StyleSheet.create({
 	body: {
-		height: "70%",
+		height: "75%",
 		width: "90%",
 		padding: 14,
 		borderWidth: 1,
-		borderColor: "white",
-		backgroundColor: "lightgray",
+		borderLeftWidth: 5,
+		borderLeftColor: "deepskyblue",
+		borderBottomColor: "lightskyblue",
+		borderRightColor: "lightskyblue",
+		borderTopColor: "deepskyblue",
+		borderBottomWidth: 3,
+		borderTopWidth: 1,
+		backgroundColor: "dodgerblue",
 		borderRadius: 10,
 	},
 });
