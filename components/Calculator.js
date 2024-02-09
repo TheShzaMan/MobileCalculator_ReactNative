@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
 		height: "75%",
 		width: "90%",
 		padding: 14,
+		// overflow: "hidden",
 		borderWidth: 1,
 		borderLeftWidth: 5,
 		borderLeftColor: "deepskyblue",
