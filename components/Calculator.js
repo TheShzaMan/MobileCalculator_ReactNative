@@ -1,4 +1,4 @@
-import { React, useRef } from "react";
+import { React, useRef, useState, useEffect } from "react";
 import { Text, StyleSheet, View, Animated } from "react-native";
 import Buttons from "../components/Buttons";
 import Display from "../components/Display";
@@ -6,8 +6,37 @@ import SolarCell from "./SolarCell";
 
 const Calculator = ({}) => {
 	// const [digitOpacity, setDigitOpacity] = useState(1);
-	const digitOpacity = useRef(new Animated.Value(1)).current;
+	const digitOpacity = useRef(new Animated.Value(0)).current;
+	const [isOn, setIsOn] = useState(false);
+	const [displayDigits, setDisplayDigits] = useState([0]);
 
+	useEffect(() => {
+		setDisplayDigits([0]);
+	}, []);
+	useEffect(() => {
+		console.log(isOn);
+	}, [isOn]);
+
+	const onAndClear = () => {
+		if (!isOn) {
+			fadeIn();
+			setIsOn(true);
+		} else {
+			setDisplayDigits([0]);
+		}
+		// console.log(isOn);
+	};
+	const handleOff = () => {
+		if (isOn) {
+			fadeOut();
+			setDisplayDigits([0]);
+			setIsOn(false);
+		}
+	};
+	const enterNum = (btn) => {
+		setDisplayDigits(displayDigits.push(btn));
+		console.log(displayDigits);
+	};
 	const fadeOut = () => {
 		Animated.timing(digitOpacity, {
 			toValue: 0,
@@ -27,8 +56,16 @@ const Calculator = ({}) => {
 		<View style={styles.body}>
 			<Text style={{ color: "black" }}>Calculator Component</Text>
 			<SolarCell fadeOut={fadeOut} fadeIn={fadeIn} />
-			<Display digitOpacity={digitOpacity} />
-			<Buttons />
+			<Display
+				digitOpacity={digitOpacity}
+				displayDigits={displayDigits}
+			/>
+			<Buttons
+				enterNum={enterNum}
+				handleOff={handleOff}
+				handleOnClear={onAndClear}
+				setIsOn={setIsOn}
+			/>
 		</View>
 	);
 };
