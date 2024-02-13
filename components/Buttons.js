@@ -3,10 +3,35 @@ import { Text, StyleSheet, View } from "react-native";
 
 import { NumButton, OvalButton, OpsButton } from "./customButton";
 
-const Buttons = ({ enterNum, handleOnClear, handleOff }) => {
+const Buttons = ({
+	handleInputChange,
+	handleOnClear,
+	handleOff,
+	workingDigits,
+	setWorkingDigits,
+	setArgA,
+}) => {
 	const opsBtns = ["+", "-", "\u00d7", "\u00F7"];
 	const numsBtns = [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, ".", "="];
 	const advBtns = ["del", "MR", "M+", "%"];
+	const updateDisplay = (num) => {
+		if (num === ".") {
+			if (!workingDigits.includes(".")) {
+				setWorkingDigits(workingDigits + ".");
+			}
+		} else {
+			if (workingDigits == 0) {
+				setWorkingDigits(num.toString());
+			} else {
+				setWorkingDigits(workingDigits + num.toString()); //change to string interpolation
+			}
+		}
+	};
+
+	const operate = () => {
+		setArgA(workingDigits);
+	};
+
 	return (
 		<View id='btnsContainer' style={{ alignItems: "center", width: "99%" }}>
 			<View
@@ -42,11 +67,12 @@ const Buttons = ({ enterNum, handleOnClear, handleOff }) => {
 						flex: 3,
 					}}
 				>
-					{numsBtns.map((btn, index) => (
+					{numsBtns.map((num, index) => (
 						<NumButton
-							text={btn}
+							text={num}
 							key={index}
-							onPress={enterNum}
+							onPress={updateDisplay}
+							//setDisplayedDigits={setDisplayedDigits}
 							// textColor={"black"}
 						/>
 					))}
@@ -81,6 +107,7 @@ const Buttons = ({ enterNum, handleOnClear, handleOff }) => {
 						customStyle={{ fontSize: 38 }}
 						text={btn}
 						key={index}
+						onPress={operate}
 					/>
 				))}
 			</View>

@@ -3,6 +3,10 @@ import { Text, StyleSheet, View, TextInput, Animated } from "react-native";
 import DigitalNum from "./DigitalNum";
 
 const Display = ({ digitOpacity, displayDigits }) => {
+	useEffect(() => {
+		console.log(displayDigits);
+	}, [displayDigits]);
+
 	return (
 		<View id='bgGhostDigits' style={styles.screen}>
 			<Text numberOfLines={1} style={styles.bgText}>

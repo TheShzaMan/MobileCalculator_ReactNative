@@ -1,11 +1,15 @@
-import { React, useRef } from "react";
-import { Pressable, StyleSheet, Text, View, pressed } from "react-native";
+import { React } from "react";
+import { Pressable, StyleSheet, Text } from "react-native";
 
 // export default function CustomButton() {
 export const NumButton = ({ onPress, text }) => {
+	const handlePress = () => {
+		onPress(text);
+		console.log("at NumButton: " + text);
+	};
 	return (
 		<Pressable
-			onPress={onPress}
+			onPressIn={handlePress}
 			style={({ pressed }) => [
 				{ backgroundColor: pressed ? "gray" : "floralwhite" },
 				styles.round,
@@ -27,7 +31,7 @@ export const NumButton = ({ onPress, text }) => {
 export const OpsButton = ({ onPress, text, customStyle }) => {
 	return (
 		<Pressable
-			onPress={onPress}
+			onPressIn={onPress}
 			style={({ pressed }) => [
 				{ backgroundColor: pressed ? "gray" : "black" },
 				styles.round,
