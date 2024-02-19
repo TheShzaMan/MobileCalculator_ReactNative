@@ -1,35 +1,47 @@
-import React from "react";
+import { React, useState } from "react";
 import { Text, StyleSheet, View } from "react-native";
 
 import { NumButton, OvalButton, OpsButton } from "./customButton";
 
 const Buttons = ({
-	handleInputChange,
+	setOpr,
 	handleOnClear,
 	handleOff,
 	workingDigits,
 	setWorkingDigits,
 	setArgA,
+	calculate,
 }) => {
 	const opsBtns = ["+", "-", "\u00d7", "\u00F7"];
 	const numsBtns = [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, ".", "="];
 	const advBtns = ["del", "MR", "M+", "%"];
+	const [isNew, setIsNew] = useState(true);
 	const updateDisplay = (num) => {
 		if (num === ".") {
 			if (!workingDigits.includes(".")) {
 				setWorkingDigits(workingDigits + ".");
-			}
-		} else {
-			if (workingDigits == 0) {
-				setWorkingDigits(num.toString());
 			} else {
-				setWorkingDigits(workingDigits + num.toString()); //change to string interpolation
+				return "";
 			}
+		}
+		if (isNew) {
+			setWorkingDigits(num.toString());
+			setIsNew(false);
+		} else {
+			setWorkingDigits(workingDigits + num.toString());
+		}
+		if (num.id == "opsBtns") {
+			setOpr(num);
+			saveArgA();
+		}
+		if (num === "=") {
+			calculate();
 		}
 	};
 
-	const operate = () => {
+	const saveArgA = () => {
 		setArgA(workingDigits);
+		setIsNew(true);
 	};
 
 	return (
@@ -107,7 +119,7 @@ const Buttons = ({
 						customStyle={{ fontSize: 38 }}
 						text={btn}
 						key={index}
-						onPress={operate}
+						onPress={saveArgA}
 					/>
 				))}
 			</View>

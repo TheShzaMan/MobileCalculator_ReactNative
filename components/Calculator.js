@@ -10,13 +10,14 @@ const Calculator = ({}) => {
 	const [isOn, setIsOn] = useState(false);
 	const [workingDigits, setWorkingDigits] = useState([0]);
 	const [displayedDigits, setDisplayedDigits] = useState(0);
-	const [argA, setArgA] = useState();
+	const [argA, setArgA] = useState(0);
+	const [opr, setOpr] = useState("+");
 	useEffect(() => {
-		console.log(Array.isArray(workingDigits));
-		// let tempDigits = parseInt(workingDigitsA);
+		// console.log(Array.isArray(workingDigits));
+		setDisplayedDigits(parseInt(workingDigits));
 
-		setDisplayedDigits(workingDigits);
-		console.log("at Calculator useEffect: " + displayedDigits);
+		// let sumOfWorkingAndArgA = parseInt(workingDigits) + parseInt(argA);
+		// console.log("at Calculator useEffect: " + sumOfWorkingAndArgA);
 	}, [workingDigits]);
 
 	const onAndClear = () => {
@@ -36,6 +37,31 @@ const Calculator = ({}) => {
 			setDisplayedDigits([0]);
 			setIsOn(false);
 		}
+	};
+
+	const calculate = () => {
+		let solution = parseInt(argA) + opr + parseInt(workingDigits);
+		console.log(parseInt(solution) + "@ calculate()");
+		switch (opr) {
+			case "+":
+				setWorkingDigits(parseInt(argA) + parseInt(workingDigits));
+				// setWorkingDigits(solution);
+				break;
+			case "-":
+				setWorkingDigits(parseInt(argA) - parseInt(workingDigits));
+				break;
+			case "\u00d7":
+				setWorkingDigits(parseInt(argA) * parseInt(workingDigits));
+				break;
+			case "\u00F7":
+				setWorkingDigits(parseInt(argA) / parseInt(workingDigits));
+
+				break;
+
+			default:
+				break;
+		}
+		// setWorkingDigits(solution.toString());
 	};
 
 	const fadeOut = () => {
@@ -69,6 +95,8 @@ const Calculator = ({}) => {
 				workingDigits={workingDigits}
 				setWorkingDigits={setWorkingDigits}
 				setArgA={setArgA}
+				setOpr={setOpr}
+				calculate={calculate}
 				// setDisplayedDigits={setDisplayedDigits}
 			/>
 		</View>
