@@ -4,44 +4,46 @@ import { Text, StyleSheet, View } from "react-native";
 import { NumButton, OvalButton, OpsButton } from "./customButton";
 
 const Buttons = ({
-	setOpr,
 	handleOnClear,
 	handleOff,
 	workingDigits,
 	setWorkingDigits,
 	setArgA,
+	setOpr,
 	calculate,
+	holdDisplay,
 }) => {
 	const opsBtns = ["+", "-", "\u00d7", "\u00F7"];
 	const numsBtns = [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, ".", "="];
 	const advBtns = ["del", "MR", "M+", "%"];
 	const [isNew, setIsNew] = useState(true);
-	const updateDisplay = (num) => {
-		if (num === ".") {
-			if (!workingDigits.includes(".")) {
+
+	const updateDisplay = (btnPressed) => {
+		if (workingDigits == 0) {
+			if (btnPressed === ".") {
 				setWorkingDigits(workingDigits + ".");
+			} else if (btnPressed === "=") {
+				calculate();
 			} else {
-				return "";
+				setWorkingDigits(btnPressed.toString());
 			}
-		}
-		if (isNew) {
-			setWorkingDigits(num.toString());
-			setIsNew(false);
 		} else {
-			setWorkingDigits(workingDigits + num.toString());
-		}
-		if (num.id == "opsBtns") {
-			setOpr(num);
-			saveArgA();
-		}
-		if (num === "=") {
-			calculate();
+			if (btnPressed === ".") {
+				!workingDigits.includes(".") &&
+					setWorkingDigits(workingDigits + ".");
+			} else if (btnPressed === "=") {
+				calculate();
+			} else {
+				setWorkingDigits(workingDigits + btnPressed.toString());
+			}
 		}
 	};
 
-	const saveArgA = () => {
+	const handleOperator = (btnPressed) => {
 		setArgA(workingDigits);
-		setIsNew(true);
+		setOpr(btnPressed);
+		setWorkingDigits([0]);
+		holdDisplay();
 	};
 
 	return (
@@ -119,7 +121,7 @@ const Buttons = ({
 						customStyle={{ fontSize: 38 }}
 						text={btn}
 						key={index}
-						onPress={saveArgA}
+						onPress={handleOperator}
 					/>
 				))}
 			</View>

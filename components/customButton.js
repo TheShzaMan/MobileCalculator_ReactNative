@@ -5,7 +5,7 @@ import { Pressable, StyleSheet, Text } from "react-native";
 export const NumButton = ({ onPress, text }) => {
 	const handlePress = () => {
 		onPress(text);
-		console.log("at NumButton: " + text);
+		// console.log("at NumButton: " + text);
 	};
 	return (
 		<Pressable
@@ -29,9 +29,12 @@ export const NumButton = ({ onPress, text }) => {
 	);
 };
 export const OpsButton = ({ onPress, text, customStyle }) => {
+	const handlePress = () => {
+		onPress(text);
+	};
 	return (
 		<Pressable
-			onPressIn={onPress}
+			onPressIn={handlePress}
 			style={({ pressed }) => [
 				{ backgroundColor: pressed ? "gray" : "black" },
 				styles.round,

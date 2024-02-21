@@ -12,13 +12,10 @@ const Calculator = ({}) => {
 	const [displayedDigits, setDisplayedDigits] = useState(0);
 	const [argA, setArgA] = useState(0);
 	const [opr, setOpr] = useState("+");
-	useEffect(() => {
-		// console.log(Array.isArray(workingDigits));
-		setDisplayedDigits(parseInt(workingDigits));
 
-		// let sumOfWorkingAndArgA = parseInt(workingDigits) + parseInt(argA);
-		// console.log("at Calculator useEffect: " + sumOfWorkingAndArgA);
-	}, [workingDigits]);
+	// useEffect(() => {
+	// 	setDisplayedDigits(parseInt(workingDigits));
+	// }, [workingDigits]);
 
 	const onAndClear = () => {
 		if (!isOn) {
@@ -39,9 +36,13 @@ const Calculator = ({}) => {
 		}
 	};
 
+	const keepDisplayButClearWorking = () => {
+		// setWorkingDigits([0]);
+		setDisplayedDigits(argA);
+	};
+
 	const calculate = () => {
-		let solution = parseInt(argA) + opr + parseInt(workingDigits);
-		console.log(parseInt(solution) + "@ calculate()");
+		// let solution = parseInt(argA) + opr + parseInt(workingDigits);
 		switch (opr) {
 			case "+":
 				setWorkingDigits(parseInt(argA) + parseInt(workingDigits));
@@ -55,12 +56,11 @@ const Calculator = ({}) => {
 				break;
 			case "\u00F7":
 				setWorkingDigits(parseInt(argA) / parseInt(workingDigits));
-
 				break;
-
 			default:
 				break;
 		}
+		console.log(parseInt(argA) + " and " + opr + " @ calculate()");
 		// setWorkingDigits(solution.toString());
 	};
 
@@ -90,13 +90,14 @@ const Calculator = ({}) => {
 			/>
 			<Buttons
 				// handleInputChange={handleInputChange}
-				handleOff={handleOff}
 				handleOnClear={onAndClear}
+				handleOff={handleOff}
 				workingDigits={workingDigits}
 				setWorkingDigits={setWorkingDigits}
 				setArgA={setArgA}
 				setOpr={setOpr}
 				calculate={calculate}
+				holdDisplay={keepDisplayButClearWorking}
 				// setDisplayedDigits={setDisplayedDigits}
 			/>
 		</View>
