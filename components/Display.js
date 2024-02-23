@@ -1,11 +1,10 @@
-import { useState, React, useEffect } from "react";
-import { Text, StyleSheet, View, TextInput, Animated } from "react-native";
-import DigitalNum from "./DigitalNum";
+import { React, useEffect } from "react";
+import { Text, StyleSheet, View, Animated } from "react-native";
 
 const Display = ({ digitOpacity, displayDigits }) => {
-	useEffect(() => {
-		console.log(displayDigits);
-	}, [displayDigits]);
+	// useEffect(() => {
+	// 	return displayDigits; //console.log(displayDigits);
+	// }, [displayDigits]);
 
 	return (
 		<View id='bgGhostDigits' style={styles.screen}>
@@ -16,6 +15,7 @@ const Display = ({ digitOpacity, displayDigits }) => {
 			<Animated.Text
 				id='digitsDisplay'
 				numberOfLines={1}
+				ellipsizeMode='clip'
 				style={[styles.inputText, { opacity: digitOpacity }]}
 			>
 				{displayDigits}

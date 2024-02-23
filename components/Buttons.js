@@ -6,45 +6,18 @@ import { NumButton, OvalButton, OpsButton } from "./customButton";
 const Buttons = ({
 	handleOnClear,
 	handleOff,
-	workingDigits,
-	setWorkingDigits,
-	setArgA,
-	setOpr,
-	calculate,
-	holdDisplay,
+	handleBtnPressed,
+	// workingDigits,
+	// setWorkingDigits,
+	// setArgA,
+	// setOpr,
+	// calculate,
+	// holdDisplay,
 }) => {
 	const opsBtns = ["+", "-", "\u00d7", "\u00F7"];
 	const numsBtns = [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, ".", "="];
 	const advBtns = ["del", "MR", "M+", "%"];
 	const [isNew, setIsNew] = useState(true);
-
-	const updateDisplay = (btnPressed) => {
-		if (workingDigits == 0) {
-			if (btnPressed === ".") {
-				setWorkingDigits(workingDigits + ".");
-			} else if (btnPressed === "=") {
-				calculate();
-			} else {
-				setWorkingDigits(btnPressed.toString());
-			}
-		} else {
-			if (btnPressed === ".") {
-				!workingDigits.includes(".") &&
-					setWorkingDigits(workingDigits + ".");
-			} else if (btnPressed === "=") {
-				calculate();
-			} else {
-				setWorkingDigits(workingDigits + btnPressed.toString());
-			}
-		}
-	};
-
-	const handleOperator = (btnPressed) => {
-		setArgA(workingDigits);
-		setOpr(btnPressed);
-		setWorkingDigits([0]);
-		holdDisplay();
-	};
 
 	return (
 		<View id='btnsContainer' style={{ alignItems: "center", width: "99%" }}>
@@ -85,7 +58,8 @@ const Buttons = ({
 						<NumButton
 							text={num}
 							key={index}
-							onPress={updateDisplay}
+							onPress={handleBtnPressed}
+							// getBtnId={getBtnId}
 							//setDisplayedDigits={setDisplayedDigits}
 							// textColor={"black"}
 						/>
@@ -104,6 +78,8 @@ const Buttons = ({
 							customStyle={{ fontSize: 24 }}
 							text={btn}
 							key={index}
+							id='advBtns'
+							onPress={handleBtnPressed}
 						/>
 					))}
 				</View>
@@ -121,7 +97,8 @@ const Buttons = ({
 						customStyle={{ fontSize: 38 }}
 						text={btn}
 						key={index}
-						onPress={handleOperator}
+						onPress={handleBtnPressed}
+						id={"opsBtns"}
 					/>
 				))}
 			</View>

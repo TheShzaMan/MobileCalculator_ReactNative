@@ -4,9 +4,11 @@ import { Pressable, StyleSheet, Text } from "react-native";
 // export default function CustomButton() {
 export const NumButton = ({ onPress, text }) => {
 	const handlePress = () => {
-		onPress(text);
+		let id = "numBtns";
+		onPress(text, id);
 		// console.log("at NumButton: " + text);
 	};
+
 	return (
 		<Pressable
 			onPressIn={handlePress}
@@ -28,10 +30,11 @@ export const NumButton = ({ onPress, text }) => {
 		</Pressable>
 	);
 };
-export const OpsButton = ({ onPress, text, customStyle }) => {
+export const OpsButton = ({ onPress, text, customStyle, id }) => {
 	const handlePress = () => {
-		onPress(text);
+		onPress(text, id);
 	};
+
 	return (
 		<Pressable
 			onPressIn={handlePress}

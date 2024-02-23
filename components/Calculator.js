@@ -9,59 +9,37 @@ const Calculator = ({}) => {
 	const digitOpacity = useRef(new Animated.Value(0)).current;
 	const [isOn, setIsOn] = useState(false);
 	const [workingDigits, setWorkingDigits] = useState([0]);
-	const [displayedDigits, setDisplayedDigits] = useState(0);
-	const [argA, setArgA] = useState(0);
+	const [displayedDigits, setDisplayedDigits] = useState("0");
+	const [argA, setArgA] = useState("0");
+	const [argB, setArgB] = useState();
+	const [result, setResult] = useState();
 	const [opr, setOpr] = useState("+");
+	const [button, setButton] = useState("");
 
-	// useEffect(() => {
-	// 	setDisplayedDigits(parseInt(workingDigits));
-	// }, [workingDigits]);
+	//argA.length != 0 ? setArgB(displayedDigits)
+
+	useEffect(() => {
+		setDisplayedDigits("0");
+		//console.log(argA + "@ useEffect");
+	}, []);
 
 	const onAndClear = () => {
 		if (!isOn) {
-			setDisplayedDigits(0);
-			fadeIn();
+			setDisplayedDigits("0");
 			setIsOn(true);
+			fadeIn();
 		} else {
-			setWorkingDigits([0]);
-			setDisplayedDigits(0);
+			setDisplayedDigits("0");
+			setArgA("0");
 		}
 	};
 
 	const handleOff = () => {
 		if (isOn) {
 			fadeOut();
-			setDisplayedDigits([0]);
+			setDisplayedDigits("0");
 			setIsOn(false);
 		}
-	};
-
-	const keepDisplayButClearWorking = () => {
-		// setWorkingDigits([0]);
-		setDisplayedDigits(argA);
-	};
-
-	const calculate = () => {
-		// let solution = parseInt(argA) + opr + parseInt(workingDigits);
-		switch (opr) {
-			case "+":
-				setWorkingDigits(parseInt(argA) + parseInt(workingDigits));
-				// setWorkingDigits(solution);
-				break;
-			case "-":
-				setWorkingDigits(parseInt(argA) - parseInt(workingDigits));
-				break;
-			case "\u00d7":
-				setWorkingDigits(parseInt(argA) * parseInt(workingDigits));
-				break;
-			case "\u00F7":
-				setWorkingDigits(parseInt(argA) / parseInt(workingDigits));
-				break;
-			default:
-				break;
-		}
-		console.log(parseInt(argA) + " and " + opr + " @ calculate()");
-		// setWorkingDigits(solution.toString());
 	};
 
 	const fadeOut = () => {
@@ -80,6 +58,65 @@ const Calculator = ({}) => {
 		}).start();
 	};
 
+	// const clearWorkingDigits = () => setWorkingDigits([0]);
+
+	const handleBtnPressed = (btnPressed, btnType) => {
+		argA != "0" && setDisplayedDigits("0");
+
+		if (btnType == "numBtns") {
+			switch (btnPressed) {
+				case ".":
+					if (
+						displayedDigits == "0" ||
+						!displayedDigits.includes(".") ||
+						argA != "0"
+					) {
+						setDisplayedDigits("0.");
+					}
+					break;
+				case "=":
+					calculate();
+					// setArgA("0");
+					break;
+				default:
+					displayedDigits == "0" || argA != "0"
+						? setDisplayedDigits(btnPressed.toString())
+						: setDisplayedDigits(
+								displayedDigits + btnPressed.toString()
+						  );
+					break;
+			}
+		} else if (btnType == "opsBtns") {
+			argA != "0" && calculate();
+			setArgA("0");
+			setOpr(btnPressed);
+			setArgA(displayedDigits);
+		}
+	};
+
+	const calculate = () => {
+		// let solution = parseInt(argA) + opr + parseInt(workingDigits);
+		switch (opr) {
+			case "+":
+				setDisplayedDigits(parseInt(argA) + parseInt(displayedDigits));
+				// setWorkingDigits(solution);
+				break;
+			case "-":
+				setDisplayedDigits(parseInt(argA) - parseInt(displayedDigits));
+				break;
+			case "\u00d7":
+				setDisplayedDigits(parseInt(argA) * parseInt(displayedDigits));
+				break;
+			case "\u00F7":
+				setDisplayedDigits(parseInt(argA) / parseInt(displayedDigits));
+				break;
+			default:
+				break;
+		}
+		console.log(parseInt(argA) + " and " + opr + " @ calculate()");
+		// setWorkingDigits(solution.toString());
+	};
+
 	return (
 		<View style={styles.body}>
 			<Text style={{ color: "black" }}>Calculator Component</Text>
@@ -92,13 +129,14 @@ const Calculator = ({}) => {
 				// handleInputChange={handleInputChange}
 				handleOnClear={onAndClear}
 				handleOff={handleOff}
-				workingDigits={workingDigits}
-				setWorkingDigits={setWorkingDigits}
-				setArgA={setArgA}
-				setOpr={setOpr}
-				calculate={calculate}
-				holdDisplay={keepDisplayButClearWorking}
-				// setDisplayedDigits={setDisplayedDigits}
+				handleBtnPressed={handleBtnPressed}
+				// workingDigits={workingDigits}
+				// setWorkingDigits={setWorkingDigits}
+				// setArgA={setArgA}
+				// setOpr={setOpr}
+				// calculate={calculate}
+				// holdDisplay={keepDisplayButClearWorking}
+				//// setDisplayedDigits={setDisplayedDigits}
 			/>
 		</View>
 	);
