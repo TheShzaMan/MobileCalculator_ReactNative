@@ -1,0 +1,7 @@
+{
+  "packagerPort": 8081,
+  "expoServerPort": 19000,
+  "expoServerNgrokUrl": "https://ua-7th.theshza.mobilecalculator.exp.direct",
+  "packagerNgrokUrl": "https://packager.ua-7th.theshza.mobilecalculator.exp.direct",
+  "ngrokPid": 25044
+}

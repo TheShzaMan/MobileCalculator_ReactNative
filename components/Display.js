@@ -5,7 +5,7 @@ const Display = ({ digitOpacity, displayDigits }) => {
 	// useEffect(() => {
 	// 	return displayDigits; //console.log(displayDigits);
 	// }, [displayDigits]);
-
+	console.log(displayDigits + ": displayDigits @Display");
 	return (
 		<View id='bgGhostDigits' style={styles.screen}>
 			<Text numberOfLines={1} style={styles.bgText}>

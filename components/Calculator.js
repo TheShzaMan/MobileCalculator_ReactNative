@@ -8,13 +8,11 @@ const Calculator = ({}) => {
 	// const [digitOpacity, setDigitOpacity] = useState(1);
 	const digitOpacity = useRef(new Animated.Value(0)).current;
 	const [isOn, setIsOn] = useState(false);
-	const [workingDigits, setWorkingDigits] = useState([0]);
 	const [displayedDigits, setDisplayedDigits] = useState("0");
 	const [argA, setArgA] = useState("0");
 	const [argB, setArgB] = useState();
 	const [result, setResult] = useState();
 	const [opr, setOpr] = useState("+");
-	const [button, setButton] = useState("");
 
 	//argA.length != 0 ? setArgB(displayedDigits)
 
@@ -71,14 +69,14 @@ const Calculator = ({}) => {
 						!displayedDigits.includes(".") ||
 						argA != "0"
 					) {
-						setDisplayedDigits("0.");
+						setDisplayedDigits(displayedDigits + ".");
 					}
 					break;
 				case "=":
-					calculate();
-					// setArgA("0");
+					setDisplayedDigits(calculate(btnPressed));
+					//setArgA("0");
 					break;
-				default:
+				default: /////  btnPressed is a number  /////
 					displayedDigits == "0" || argA != "0"
 						? setDisplayedDigits(btnPressed.toString())
 						: setDisplayedDigits(
@@ -87,20 +85,29 @@ const Calculator = ({}) => {
 					break;
 			}
 		} else if (btnType == "opsBtns") {
-			argA != "0" && calculate();
-			setArgA("0");
+			argA != "0" && calculate(btnPressed);
 			setOpr(btnPressed);
 			setArgA(displayedDigits);
 		}
+		console.log(
+			argA +
+				" " +
+				displayedDigits +
+				": argA and displayedDigits @ end of handleBtnPressed"
+		);
 	};
 
-	const calculate = () => {
+	const calculate = (btnPressed) => {
 		// let solution = parseInt(argA) + opr + parseInt(workingDigits);
 		switch (opr) {
 			case "+":
-				setDisplayedDigits(parseInt(argA) + parseInt(displayedDigits));
-				// setWorkingDigits(solution);
-				break;
+				// setDisplayedDigits(parseInt(argA) + parseInt(displayedDigits));
+				setResult(parseInt(argA) + parseInt(displayedDigits));
+				setArgA("0");
+				return result;
+			//setArgA(result);
+			// setWorkingDigits(solution);
+			//break;
 			case "-":
 				setDisplayedDigits(parseInt(argA) - parseInt(displayedDigits));
 				break;

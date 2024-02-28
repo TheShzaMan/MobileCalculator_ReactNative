@@ -1,3 +1,4 @@
+import { StrictMode } from "react";
 import { useState, useEffect, React } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
@@ -21,12 +22,14 @@ export default function App() {
 	}, []);
 
 	return (
-		fontLoaded && (
-			<View style={styles.container}>
-				<StatusBar hidden={false} style='auto' />
-				<Calculator />
-			</View>
-		)
+		<StrictMode>
+			{fontLoaded && (
+				<View style={styles.container}>
+					<StatusBar hidden={false} style='auto' />
+					<Calculator />
+				</View>
+			)}
+		</StrictMode>
 	);
 }
 
