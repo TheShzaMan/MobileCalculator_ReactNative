@@ -5,14 +5,13 @@ import Display from "../components/Display";
 import SolarCell from "./SolarCell";
 
 const Calculator = ({}) => {
-	// const [digitOpacity, setDigitOpacity] = useState(1);
-	const digitOpacity = useRef(new Animated.Value(0)).current;
-	const [isOn, setIsOn] = useState(false);
-	const [displayedDigits, setDisplayedDigits] = useState("0");
-	const [argA, setArgA] = useState("0");
-	const [argB, setArgB] = useState();
-	const [result, setResult] = useState();
-	const [opr, setOpr] = useState("+");
+	const [isOn, setIsOn] = useState(false); ////////////////////////// 1
+	const [displayedDigits, setDisplayedDigits] = useState("0"); /// 2
+	const digitOpacity = useRef(new Animated.Value(0)).current; // 3
+	const [argA, setArgA] = useState("0"); ////////////////////////// 4
+	const [argB, setArgB] = useState("0"); /////////////////////////// 5
+	const [result, setResult] = useState(); /////////////////////////// 6
+	const [opr, setOpr] = useState(); //////////////////////////////// 7
 	////\\\\////\\\\//// route to debug with React DevTools is run app with npx expo start,
 	////\\\\\\///////\\\ once running, shift+m for menu then down to Open React devtools
 
@@ -20,6 +19,9 @@ const Calculator = ({}) => {
 		setDisplayedDigits("0");
 		//console.log(argA + "@ useEffect");
 	}, []);
+	useEffect(() => {
+		console.log(displayedDigits);
+	}, [displayedDigits]);
 
 	const onAndClear = () => {
 		if (!isOn) {
@@ -29,6 +31,8 @@ const Calculator = ({}) => {
 		} else {
 			setDisplayedDigits("0");
 			setArgA("0");
+			setArgB("0");
+			setResult();
 		}
 	};
 
@@ -56,11 +60,32 @@ const Calculator = ({}) => {
 		}).start();
 	};
 
-	// const clearWorkingDigits = () => setWorkingDigits([0]);
-
+	const handleNumPressed = (btnPressed) => {
+		if (opr == null) {
+			if (argA == "0") {
+				setArgA(btnPressed);
+				setDisplayedDigits(btnPressed);
+			} else {
+				setArgA((prevA) => {
+					const updatedA = prevA + btnPressed.toString();
+					setDisplayedDigits(updatedA);
+					return updatedA;
+				});
+			}
+		} else {
+			if (argB == "0") {
+				setArgB(btnPressed);
+				setDisplayedDigits(btnPressed);
+			} else {
+				setArgB((prevB) => {
+					const updatedB = prevB + btnPressed.toString();
+					setDisplayedDigits(updatedB);
+					return updatedB;
+				});
+			}
+		}
+	};
 	const handleBtnPressed = (btnPressed, btnType) => {
-		//argA != "0" && setDisplayedDigits("0");
-
 		if (btnType == "numBtns") {
 			switch (btnPressed) {
 				case ".":
@@ -73,38 +98,39 @@ const Calculator = ({}) => {
 					}
 					break;
 				case "=":
-					setDisplayedDigits(calculate(btnPressed));
-					//setArgA("0");
+					setDisplayedDigits(calculate());
+					setArgA(argB);
+					setArgB("0");
 					break;
-				default: /////  btnPressed is a number  /////
-					displayedDigits == "0" || argA != "0"
-						? setDisplayedDigits(btnPressed.toString())
-						: setDisplayedDigits(
-								displayedDigits + btnPressed.toString()
-						  );
-					break;
+				default:
+					handleNumPressed(btnPressed);
 			}
 		} else if (btnType == "opsBtns") {
-			argA != "0" && setDisplayedDigits(calculate(btnPressed));
+			argA != "0" &&
+				function () {
+					setArgB(displayedDigits);
+					setDisplayedDigits(calculate());
+					// setArgA(argB);
+					// setArgB("0");
+				};
 			setOpr(btnPressed);
 			setArgA(displayedDigits);
+			console.log(
+				argA +
+					" " +
+					displayedDigits +
+					": argA and displayedDigits @ end of handleBtnPressed"
+			);
 		}
-		console.log(
-			argA +
-				" " +
-				displayedDigits +
-				": argA and displayedDigits @ end of handleBtnPressed"
-		);
 	};
-
-	const calculate = (btnPressed) => {
+	const calculate = () => {
 		// let solution = parseInt(argA) + opr + parseInt(workingDigits);
 		switch (opr) {
 			case "+":
 				// setDisplayedDigits(parseInt(argA) + parseInt(displayedDigits));
-				setResult(parseInt(argA) + parseInt(displayedDigits));
-				setArgA("0");
-				return result;
+				return parseInt(argA) + parseInt(argB);
+
+			//return result;
 			//setArgA(result);
 			// setWorkingDigits(solution);
 			//break;
