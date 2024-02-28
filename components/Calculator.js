@@ -13,8 +13,8 @@ const Calculator = ({}) => {
 	const [argB, setArgB] = useState();
 	const [result, setResult] = useState();
 	const [opr, setOpr] = useState("+");
-
-	//argA.length != 0 ? setArgB(displayedDigits)
+	////\\\\////\\\\//// route to debug with React DevTools is run app with npx expo start,
+	////\\\\\\///////\\\ once running, shift+m for menu then down to Open React devtools
 
 	useEffect(() => {
 		setDisplayedDigits("0");
@@ -59,7 +59,7 @@ const Calculator = ({}) => {
 	// const clearWorkingDigits = () => setWorkingDigits([0]);
 
 	const handleBtnPressed = (btnPressed, btnType) => {
-		argA != "0" && setDisplayedDigits("0");
+		//argA != "0" && setDisplayedDigits("0");
 
 		if (btnType == "numBtns") {
 			switch (btnPressed) {
@@ -85,7 +85,7 @@ const Calculator = ({}) => {
 					break;
 			}
 		} else if (btnType == "opsBtns") {
-			argA != "0" && calculate(btnPressed);
+			argA != "0" && setDisplayedDigits(calculate(btnPressed));
 			setOpr(btnPressed);
 			setArgA(displayedDigits);
 		}
