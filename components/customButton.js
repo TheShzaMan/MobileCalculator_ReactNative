@@ -1,14 +1,11 @@
 import { React } from "react";
 import { Pressable, StyleSheet, Text } from "react-native";
 
-// export default function CustomButton() {
 export const NumButton = ({ onPress, text }) => {
 	const handlePress = () => {
 		let id = "numBtns";
 		onPress(text, id);
-		// console.log("at NumButton: " + text);
 	};
-
 	return (
 		<Pressable
 			onPressIn={handlePress}
@@ -30,11 +27,11 @@ export const NumButton = ({ onPress, text }) => {
 		</Pressable>
 	);
 };
+
 export const OpsButton = ({ onPress, text, customStyle, id }) => {
 	const handlePress = () => {
 		onPress(text, id);
 	};
-
 	return (
 		<Pressable
 			onPressIn={handlePress}
@@ -51,8 +48,6 @@ export const OpsButton = ({ onPress, text, customStyle, id }) => {
 						textAlign: "center",
 						color: "floralwhite",
 						fontFamily: "segui",
-
-						// fontSize: 38,
 					},
 				]}
 			>
@@ -94,6 +89,7 @@ export const OvalButton = ({
 		</Pressable>
 	);
 };
+
 const styles = StyleSheet.create({
 	round: {
 		borderRadius: 50,

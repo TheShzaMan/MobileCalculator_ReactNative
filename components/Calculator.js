@@ -17,11 +17,8 @@ const Calculator = ({}) => {
 
 	useEffect(() => {
 		setDisplayedDigits("0");
-		//console.log(argA + "@ useEffect");
 	}, []);
-	useEffect(() => {
-		console.log(displayedDigits);
-	}, [displayedDigits]);
+	useEffect(() => {}, [displayedDigits]);
 
 	const onAndClear = () => {
 		if (!isOn) {
@@ -32,7 +29,7 @@ const Calculator = ({}) => {
 			setDisplayedDigits("0");
 			setArgA("0");
 			setArgB("0");
-			setResult();
+			setOpr();
 		}
 	};
 
@@ -62,20 +59,25 @@ const Calculator = ({}) => {
 
 	const handleNumPressed = (btnPressed) => {
 		if (opr == null) {
-			if (argA == "0") {
-				setArgA(btnPressed);
-				setDisplayedDigits(btnPressed);
+			// oprBtn has not been pressed since clear
+			if (argA === "0") {
+				setArgA(btnPressed.toString());
+				setDisplayedDigits(btnPressed.toString());
 			} else {
-				setArgA((prevA) => {
-					const updatedA = prevA + btnPressed.toString();
-					setDisplayedDigits(updatedA);
-					return updatedA;
-				});
+				if ((btnPressed == ".") & argA.includes(".")) {
+				} else {
+					setArgA((prevA) => {
+						const updatedA = prevA + btnPressed.toString();
+						setDisplayedDigits(updatedA);
+						return updatedA;
+					});
+				}
 			}
 		} else {
+			//  oprBtn has been pushed at least once.
 			if (argB == "0") {
-				setArgB(btnPressed);
-				setDisplayedDigits(btnPressed);
+				setArgB(btnPressed.toString());
+				setDisplayedDigits(btnPressed.toString());
 			} else {
 				setArgB((prevB) => {
 					const updatedB = prevB + btnPressed.toString();
@@ -85,69 +87,55 @@ const Calculator = ({}) => {
 			}
 		}
 	};
+
+	const handleEqual = () => {
+		setDisplayedDigits(calculate());
+		setArgA(argB);
+		console.log(calculate(opr) + " calculate() @ handleEqual");
+		setArgB("0");
+	};
+
 	const handleBtnPressed = (btnPressed, btnType) => {
 		if (btnType == "numBtns") {
 			switch (btnPressed) {
-				case ".":
-					if (
-						displayedDigits == "0" ||
-						!displayedDigits.includes(".") ||
-						argA != "0"
-					) {
-						setDisplayedDigits(displayedDigits + ".");
-					}
-					break;
+				// case ".":
+				// 	// if (argA === "0") {
+				// 	// 	setArgA("0.");
+				// 	// 	setDisplayedDigits("0.");
+				// 	} else {
+				// 		handleNumPressed(btnPressed);
+				// 	}
+
+				// 	{
+				// 		handleNumPressed(btnPressed);
+				// 	}
+				// 	break;
 				case "=":
-					setDisplayedDigits(calculate());
-					setArgA(argB);
-					setArgB("0");
+					handleEqual();
 					break;
-				default:
+				default: //// number is pressed
 					handleNumPressed(btnPressed);
 			}
 		} else if (btnType == "opsBtns") {
-			argA != "0" &&
-				function () {
-					setArgB(displayedDigits);
-					setDisplayedDigits(calculate());
-					// setArgA(argB);
-					// setArgB("0");
-				};
+			setDisplayedDigits(calculate());
 			setOpr(btnPressed);
-			setArgA(displayedDigits);
-			console.log(
-				argA +
-					" " +
-					displayedDigits +
-					": argA and displayedDigits @ end of handleBtnPressed"
-			);
 		}
 	};
+
 	const calculate = () => {
-		// let solution = parseInt(argA) + opr + parseInt(workingDigits);
 		switch (opr) {
 			case "+":
-				// setDisplayedDigits(parseInt(argA) + parseInt(displayedDigits));
-				return parseInt(argA) + parseInt(argB);
-
-			//return result;
-			//setArgA(result);
-			// setWorkingDigits(solution);
-			//break;
+				return parseFloat(argA) + parseFloat(argB);
 			case "-":
-				setDisplayedDigits(parseInt(argA) - parseInt(displayedDigits));
-				break;
+				return parseFloat(argA) - parseFloat(argB);
 			case "\u00d7":
-				setDisplayedDigits(parseInt(argA) * parseInt(displayedDigits));
-				break;
+				return parseFloat(argA) * parseFloat(argB);
 			case "\u00F7":
-				setDisplayedDigits(parseInt(argA) / parseInt(displayedDigits));
-				break;
+				return parseFloat(argA) / parseFloat(argB);
 			default:
 				break;
 		}
-		console.log(parseInt(argA) + " and " + opr + " @ calculate()");
-		// setWorkingDigits(solution.toString());
+		console.log(parseFloat(argA) + " and " + opr + " @ calculate()");
 	};
 
 	return (
@@ -159,17 +147,9 @@ const Calculator = ({}) => {
 				displayDigits={displayedDigits}
 			/>
 			<Buttons
-				// handleInputChange={handleInputChange}
 				handleOnClear={onAndClear}
 				handleOff={handleOff}
 				handleBtnPressed={handleBtnPressed}
-				// workingDigits={workingDigits}
-				// setWorkingDigits={setWorkingDigits}
-				// setArgA={setArgA}
-				// setOpr={setOpr}
-				// calculate={calculate}
-				// holdDisplay={keepDisplayButClearWorking}
-				//// setDisplayedDigits={setDisplayedDigits}
 			/>
 		</View>
 	);
