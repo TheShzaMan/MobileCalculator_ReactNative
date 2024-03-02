@@ -3,21 +3,10 @@ import { Text, StyleSheet, View } from "react-native";
 
 import { NumButton, OvalButton, OpsButton } from "./customButton";
 
-const Buttons = ({
-	handleOnClear,
-	handleOff,
-	handleBtnPressed,
-	// workingDigits,
-	// setWorkingDigits,
-	// setArgA,
-	// setOpr,
-	// calculate,
-	// holdDisplay,
-}) => {
+const Buttons = ({ handleOnClear, handleOff, handleBtnPressed }) => {
 	const opsBtns = ["+", "-", "\u00d7", "\u00F7"];
 	const numsBtns = [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, ".", "="];
 	const advBtns = ["del", "MR", "M+", "%"];
-	const [isNew, setIsNew] = useState(true);
 
 	return (
 		<View id='btnsContainer' style={{ alignItems: "center", width: "99%" }}>

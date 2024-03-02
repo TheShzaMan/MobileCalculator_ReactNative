@@ -1,5 +1,5 @@
 import { React, useEffect, useRef, useState } from "react";
-import { Text, StyleSheet, View, Animated } from "react-native";
+import { Text, StyleSheet, View, Animated, Button } from "react-native";
 import Buttons from "../components/Buttons";
 import Display from "../components/Display";
 import SolarCell from "./SolarCell";
@@ -12,6 +12,7 @@ const Calculator = ({}) => {
 	const [argB, setArgB] = useState("0"); /////////////////////////// 5
 	const [opr, setOpr] = useState(); //////////////////////////////// 6
 	const [prevOpr, setPrevOpr] = useState(); /////////////////////// 7
+	const [mem, setMem] = useState(); //////////////////////////////8
 
 	////\\\\////\\\\//// route to debug with React DevTools is run app with npx expo start,
 	////\\\\\\///////\\\ once running, shift+m for menu then down to Open React devtools
@@ -39,6 +40,7 @@ const Calculator = ({}) => {
 		if (isOn) {
 			fadeOut();
 			setDisplayedDigits("0");
+			setMem();
 			setIsOn(false);
 		}
 	};
@@ -62,7 +64,7 @@ const Calculator = ({}) => {
 	const handleNumPressed = (btnPressed) => {
 		if (opr == null) {
 			// oprBtn has not been pressed since clear
-			if (argA === "0") {
+			if ((argA === "0") | ((opr == null) & (prevOpr != null))) {
 				setArgA(btnPressed.toString());
 				setDisplayedDigits(btnPressed.toString());
 			} else {
@@ -90,6 +92,41 @@ const Calculator = ({}) => {
 		}
 	};
 
+	const handleAdvBtns = (button) => {
+		switch (button) {
+			case "del":
+				if (opr == null && prevOpr != null) {
+					return displayedDigits;
+				} else {
+					let adjustedArr = displayedDigits.slice(0, -1);
+					setDisplayedDigits(adjustedArr);
+					if ((displayedDigits == argA) & (argB === "0")) {
+						setArgA(adjustedArr);
+					} else {
+						setArgB(adjustedArr);
+					}
+				}
+				break;
+			case "M+":
+				setMem(displayedDigits);
+				break;
+			case "MR":
+				handleNumPressed(mem);
+				break;
+			case "%":
+				let asPercent = displayedDigits / 100;
+				setDisplayedDigits(asPercent);
+				if ((displayedDigits == argA) & (argB === "0")) {
+					setArgA(asPercent);
+				} else {
+					setArgB(asPercent);
+				}
+				break;
+			default:
+				break;
+		}
+	};
+
 	const getResult = () => {
 		const result = calculate(opr);
 		setDisplayedDigits(result);
@@ -110,6 +147,9 @@ const Calculator = ({}) => {
 				setDisplayedDigits(tempResult);
 				setArgA(tempResult);
 				setArgB("0");
+				break;
+			case "advBtns":
+				handleAdvBtns(btnPressed);
 			default:
 				break;
 		}
@@ -155,6 +195,7 @@ const Calculator = ({}) => {
 			<Display
 				digitOpacity={digitOpacity}
 				displayDigits={displayedDigits}
+				mem={mem}
 			/>
 			<Buttons
 				handleOnClear={onAndClear}

@@ -1,12 +1,13 @@
 import { React, useEffect } from "react";
 import { Text, StyleSheet, View, Animated } from "react-native";
 
-const Display = ({ digitOpacity, displayDigits }) => {
+const Display = ({ digitOpacity, displayDigits, mem }) => {
 	const formatForDisplay = (numToFormat) => {
 		const numStr = numToFormat.toString();
 		if (numStr.includes(".")) {
+			console.log(numStr[0] + " numStr");
 			if (numStr.length <= 9) {
-				return numStr;
+				return numStr[0] == "." ? "0" + numStr : numStr;
 			}
 		} else {
 			if (numStr.length <= 8) {
@@ -26,11 +27,11 @@ const Display = ({ digitOpacity, displayDigits }) => {
 	};
 	console.log(formatForDisplay(displayDigits) + ": displayDigits @Display");
 	return (
-		<View id='bgGhostDigits' style={styles.screen}>
-			<Text numberOfLines={1} style={styles.bgText}>
-				8.8.8.8.8.8.8.8
+		<View style={styles.screen}>
+			<Text id='bgGhostDigits' numberOfLines={1} style={styles.bgText}>
+				8.8.8.8.8.8.8.8.
 			</Text>
-
+			<Text style={mem ? styles.advOn : styles.advOff}>M</Text>
 			<Animated.Text
 				id='digitsDisplay'
 				numberOfLines={1}
@@ -62,13 +63,31 @@ const styles = StyleSheet.create({
 	},
 	bgText: {
 		position: "absolute",
+		right: 3,
 		fontSize: 72,
 		fontFamily: "seg7",
 		textAlign: "right",
 		color: "#7893",
 	},
+	advOn: {
+		color: "#000000",
+		position: "absolute",
+		fontSize: 22,
+		fontFamily: "arial",
+		right: 10,
+		bottom: 1,
+	},
+	advOff: {
+		color: "#7893",
+		position: "absolute",
+		fontSize: 22,
+		fontFamily: "arial",
+		right: 10,
+		bottom: 1,
+	},
 	inputText: {
 		position: "absolute",
+		right: 3,
 		fontSize: 72,
 		fontFamily: "seg7",
 		textAlign: "right",
