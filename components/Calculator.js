@@ -117,8 +117,10 @@ const Calculator = ({}) => {
 			case "-":
 				return parseFloat(argA) - parseFloat(argB);
 			case "\u00d7":
+				if ((btnPressed == "\u00d7") & (argB == "0")) return argA;
 				return parseFloat(argA) * parseFloat(argB); // calculating on opsBtn press wrong when B is zero
 			case "\u00F7":
+				if ((btnPressed == "\u00F7") & (argB == "0")) return argA;
 				return parseFloat(argA) / parseFloat(argB);
 			default:
 				break;
