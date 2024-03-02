@@ -2,22 +2,28 @@ import { React, useEffect } from "react";
 import { Text, StyleSheet, View, Animated } from "react-native";
 
 const Display = ({ digitOpacity, displayDigits }) => {
-	function formatForDisplay(numToFormat) {
+	const formatForDisplay = (numToFormat) => {
 		const numStr = numToFormat.toString();
-		if (numStr.length <= 8) {
-			return numStr;
+		if (numStr.includes(".")) {
+			if (numStr.length <= 9) {
+				return numStr;
+			}
+		} else {
+			if (numStr.length <= 8) {
+				return numStr;
+			}
 		}
 		const [integerPart, fractionalPart] = numStr.split(".");
 		if (integerPart.length >= 8) {
 			return integerPart.substring(0, 8);
 		} else {
-			const allowedFractionalLength = 7 - integerPart.length;
+			const allowedFractionalLength = 8 - integerPart.length;
 			return `${integerPart}.${fractionalPart.substring(
 				0,
 				allowedFractionalLength
 			)}`;
 		}
-	}
+	};
 	console.log(formatForDisplay(displayDigits) + ": displayDigits @Display");
 	return (
 		<View id='bgGhostDigits' style={styles.screen}>

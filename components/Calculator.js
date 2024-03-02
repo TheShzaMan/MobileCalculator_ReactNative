@@ -89,7 +89,7 @@ const Calculator = ({}) => {
 	};
 
 	const handleEqual = () => {
-		setDisplayedDigits(calculate());
+		setDisplayedDigits(calculate(opr));
 		setArgA(argB);
 		console.log(calculate(opr) + " calculate() @ handleEqual");
 		setArgB("0");
@@ -98,38 +98,26 @@ const Calculator = ({}) => {
 	const handleBtnPressed = (btnPressed, btnType) => {
 		if (btnType == "numBtns") {
 			switch (btnPressed) {
-				// case ".":
-				// 	// if (argA === "0") {
-				// 	// 	setArgA("0.");
-				// 	// 	setDisplayedDigits("0.");
-				// 	} else {
-				// 		handleNumPressed(btnPressed);
-				// 	}
-
-				// 	{
-				// 		handleNumPressed(btnPressed);
-				// 	}
-				// 	break;
 				case "=":
 					handleEqual();
 					break;
-				default: //// number is pressed
+				default: //// number or decimal is pressed
 					handleNumPressed(btnPressed);
 			}
 		} else if (btnType == "opsBtns") {
-			setDisplayedDigits(calculate());
 			setOpr(btnPressed);
+			setDisplayedDigits(calculate(btnPressed));
 		}
 	};
 
-	const calculate = () => {
-		switch (opr) {
+	const calculate = (btnPressed) => {
+		switch (btnPressed) {
 			case "+":
 				return parseFloat(argA) + parseFloat(argB);
 			case "-":
 				return parseFloat(argA) - parseFloat(argB);
 			case "\u00d7":
-				return parseFloat(argA) * parseFloat(argB);
+				return parseFloat(argA) * parseFloat(argB); // calculating on opsBtn press wrong when B is zero
 			case "\u00F7":
 				return parseFloat(argA) / parseFloat(argB);
 			default:
