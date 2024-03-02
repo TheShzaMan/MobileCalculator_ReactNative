@@ -10,8 +10,9 @@ const Calculator = ({}) => {
 	const digitOpacity = useRef(new Animated.Value(0)).current; // 3
 	const [argA, setArgA] = useState("0"); ////////////////////////// 4
 	const [argB, setArgB] = useState("0"); /////////////////////////// 5
-	const [result, setResult] = useState(); /////////////////////////// 6
-	const [opr, setOpr] = useState(); //////////////////////////////// 7
+	const [opr, setOpr] = useState(); //////////////////////////////// 6
+	const [prevOpr, setPrevOpr] = useState(); /////////////////////// 7
+
 	////\\\\////\\\\//// route to debug with React DevTools is run app with npx expo start,
 	////\\\\\\///////\\\ once running, shift+m for menu then down to Open React devtools
 
@@ -30,6 +31,7 @@ const Calculator = ({}) => {
 			setArgA("0");
 			setArgB("0");
 			setOpr();
+			setPrevOpr();
 		}
 	};
 
@@ -88,26 +90,44 @@ const Calculator = ({}) => {
 		}
 	};
 
-	const handleEqual = () => {
-		setDisplayedDigits(calculate(opr));
-		setArgA(argB);
-		console.log(calculate(opr) + " calculate() @ handleEqual");
+	const getResult = () => {
+		const result = calculate(opr);
+		setDisplayedDigits(result);
+		setArgA(result);
 		setArgB("0");
+		setOpr();
 	};
 
 	const handleBtnPressed = (btnPressed, btnType) => {
-		if (btnType == "numBtns") {
-			switch (btnPressed) {
-				case "=":
-					handleEqual();
-					break;
-				default: //// number or decimal is pressed
-					handleNumPressed(btnPressed);
-			}
-		} else if (btnType == "opsBtns") {
-			setOpr(btnPressed);
-			setDisplayedDigits(calculate(btnPressed));
+		switch (btnType) {
+			case "numBtns":
+				btnPressed == "=" ? getResult() : handleNumPressed(btnPressed);
+				break;
+			case "opsBtns":
+				setPrevOpr(opr ? opr : btnPressed);
+				const tempResult = calculate(opr ? opr : btnPressed);
+				setOpr(btnPressed);
+				setDisplayedDigits(tempResult);
+				setArgA(tempResult);
+				setArgB("0");
+			default:
+				break;
 		}
+		// if (btnType == "numBtns") {
+		// 	switch (btnPressed) {
+		// 		case "=":
+		// 			getResult();
+		// 			break;
+		// 		default: //// number or decimal is pressed
+		// 			handleNumPressed(btnPressed);
+		// 	}
+		// } else if (btnType == "opsBtns") {
+		// 	setOpr(btnPressed);
+		// 	const tempResult = calculate(btnPressed);
+		// 	setDisplayedDigits(tempResult);
+		// 	setArgA(tempResult);
+		// 	setArgB("0");
+		// }
 	};
 
 	const calculate = (btnPressed) => {
