@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: "row",
 		marginLeft: "5%",
-		marginBottom: "5%",
-		
+		marginVertical: "3%",
+
 //		width: "50%",
 //		alignSelf: "flex-end",
 	},

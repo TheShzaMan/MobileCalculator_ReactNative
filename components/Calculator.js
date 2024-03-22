@@ -3,6 +3,8 @@ import { Text, StyleSheet, View, Animated } from "react-native";
 import Buttons from "../components/Buttons";
 import Display from "../components/Display";
 import SolarCell from "./SolarCell";
+import { Dimensions } from 'react-native'; //using for style to get screen width for responsive fontsizes
+
 
 const Calculator = ({}) => {
 	const [isOn, setIsOn] = useState(false); ////////////////////////// 1
@@ -198,14 +200,21 @@ const Calculator = ({}) => {
 		</View>
 	);
 };
+    // style only. getting dynamic fontsize
+    const { width } = Dimensions.get('window');
+    const brandFontSize = width * 0.08;
+
 
 const styles = StyleSheet.create({
 	body: {
 	    flex: 1,
+		padding: 14,
+		paddingTop: 25,
 		width: "90%",
 		marginHorizontal: "10%",
 		marginVertical: "20%",
-		padding: 14,
+        justifyContent: 'space-around',
+        alignItems: 'center',
 		borderWidth: 1,
 		borderLeftWidth: 5,
 		borderLeftColor: "deepskyblue",
@@ -221,17 +230,17 @@ const styles = StyleSheet.create({
 	    flexDirection: "row",
 	},
 	brandContainer: {
-
 	    alignItems: "flex-start",
-	    borderWidth: 1,
+	    //marginTop: '3%'
+	    //borderWidth: 1,
 	},
 	brand: {
 		color: "floralwhite",
 		fontFamily: "audWide",
-		fontSize: 30,
+		fontSize: brandFontSize,
 	},
 	brand2: {
-		fontSize: 18,
+		fontSize: brandFontSize/1.5,
 	},
 });
 
