@@ -28,13 +28,17 @@ export const NumButton = ({ onPress, text }) => {
 	);
 };
 
-export const OpsButton = ({ onPress, text, customStyle, id }) => {
+export const OpsButton = ({ onPress, onLongPress, text, customStyle, id }) => {
 	const handlePress = () => {
 		onPress(text, id);
 	};
+	const handleLongPress = () => {
+		onLongPress(text);
+	};
 	return (
 		<Pressable
-			onPressIn={handlePress}
+			onLongPress={handleLongPress}
+			onPressOut={handlePress}
 			style={({ pressed }) => [
 				{ backgroundColor: pressed ? "gray" : "black" },
 				styles.round,
@@ -76,7 +80,6 @@ export const OvalButton = ({
 		>
 			<Text
 				style={{
-					// lineHeight: 55,
 					textAlign: "center",
 					color: textColor,
 					textTransform: "uppercase",

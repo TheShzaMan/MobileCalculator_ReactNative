@@ -21,11 +21,13 @@ const styles = StyleSheet.create({
 		borderTopColor: "gray",
 		borderBottomColor: "lightsteelblue",
 		borderRightColor: "lightsteelblue",
-		height: "8%",
-		marginBottom: 10,
-		width: "50%",
-		alignSelf: "flex-end",
+		flex: 1,
 		flexDirection: "row",
+		marginLeft: "5%",
+		marginBottom: "5%",
+		
+//		width: "50%",
+//		alignSelf: "flex-end",
 	},
 	sq: {
 		flex: 0.333,

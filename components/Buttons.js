@@ -3,10 +3,15 @@ import { Text, StyleSheet, View } from "react-native";
 
 import { NumButton, OvalButton, OpsButton } from "./customButton";
 
-const Buttons = ({ handleOnClear, handleOff, handleBtnPressed }) => {
+const Buttons = ({
+	handleOnClear,
+	handleOff,
+	handleClearMem,
+	handleBtnPressed,
+}) => {
 	const opsBtns = ["+", "-", "\u00d7", "\u00F7"];
 	const numsBtns = [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, ".", "="];
-	const advBtns = ["del", "MR", "M+", "%"];
+	const advBtns = ["del", "R·CM", "M+", "%"];
 
 	return (
 		<View id='btnsContainer' style={{ alignItems: "center", width: "99%" }}>
@@ -48,9 +53,6 @@ const Buttons = ({ handleOnClear, handleOff, handleBtnPressed }) => {
 							text={num}
 							key={index}
 							onPress={handleBtnPressed}
-							// getBtnId={getBtnId}
-							//setDisplayedDigits={setDisplayedDigits}
-							// textColor={"black"}
 						/>
 					))}
 				</View>
@@ -69,6 +71,7 @@ const Buttons = ({ handleOnClear, handleOff, handleBtnPressed }) => {
 							key={index}
 							id='advBtns'
 							onPress={handleBtnPressed}
+							onLongPress={handleClearMem}
 						/>
 					))}
 				</View>
@@ -94,14 +97,5 @@ const Buttons = ({ handleOnClear, handleOff, handleBtnPressed }) => {
 		</View>
 	);
 };
-
-const styles = StyleSheet.create({
-	btnArea: {
-		width: "100%",
-		flexDirection: "row",
-		// flexWrap: "wrap",
-		// alignContent: "space-around",
-	},
-});
 
 export default Buttons;

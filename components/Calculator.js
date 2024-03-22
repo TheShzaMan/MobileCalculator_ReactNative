@@ -1,5 +1,5 @@
 import { React, useEffect, useRef, useState } from "react";
-import { Text, StyleSheet, View, Animated, Button } from "react-native";
+import { Text, StyleSheet, View, Animated } from "react-native";
 import Buttons from "../components/Buttons";
 import Display from "../components/Display";
 import SolarCell from "./SolarCell";
@@ -16,11 +16,6 @@ const Calculator = ({}) => {
 
 	////\\\\////\\\\//// route to debug with React DevTools is run app with npx expo start,
 	////\\\\\\///////\\\ once running, shift+m for menu then down to Open React devtools
-
-	useEffect(() => {
-		setDisplayedDigits("0");
-	}, []);
-	useEffect(() => {}, [displayedDigits]);
 
 	const onAndClear = () => {
 		if (!isOn) {
@@ -61,10 +56,14 @@ const Calculator = ({}) => {
 		}).start();
 	};
 
+	const handleClearMem = (btnPressed) => {
+		btnPressed == "R·CM" && setMem();
+	};
+
 	const handleNumPressed = (btnPressed) => {
 		if (opr == null) {
 			// oprBtn has not been pressed since clear
-			if ((argA === "0") | ((opr == null) & (prevOpr != null))) {
+			if (argA === "0") {
 				setArgA(btnPressed.toString());
 				setDisplayedDigits(btnPressed.toString());
 			} else {
@@ -99,7 +98,9 @@ const Calculator = ({}) => {
 					return displayedDigits;
 				} else {
 					let adjustedArr = displayedDigits.slice(0, -1);
-					setDisplayedDigits(adjustedArr);
+					adjustedArr == ""
+						? setDisplayedDigits("0")
+						: setDisplayedDigits(adjustedArr);
 					if ((displayedDigits == argA) & (argB === "0")) {
 						setArgA(adjustedArr);
 					} else {
@@ -110,8 +111,8 @@ const Calculator = ({}) => {
 			case "M+":
 				setMem(displayedDigits);
 				break;
-			case "MR":
-				handleNumPressed(mem);
+			case "R·CM":
+				mem && handleNumPressed(mem);
 				break;
 			case "%":
 				let asPercent = displayedDigits / 100;
@@ -128,7 +129,9 @@ const Calculator = ({}) => {
 	};
 
 	const getResult = () => {
-		const result = calculate(opr);
+		const result = opr
+			? calculate(opr).toString()
+			: calculate("+").toString();
 		setDisplayedDigits(result);
 		setArgA(result);
 		setArgB("0");
@@ -142,7 +145,7 @@ const Calculator = ({}) => {
 				break;
 			case "opsBtns":
 				setPrevOpr(opr ? opr : btnPressed);
-				const tempResult = calculate(opr ? opr : btnPressed);
+				const tempResult = calculate(opr ? opr : btnPressed).toString();
 				setOpr(btnPressed);
 				setDisplayedDigits(tempResult);
 				setArgA(tempResult);
@@ -153,21 +156,6 @@ const Calculator = ({}) => {
 			default:
 				break;
 		}
-		// if (btnType == "numBtns") {
-		// 	switch (btnPressed) {
-		// 		case "=":
-		// 			getResult();
-		// 			break;
-		// 		default: //// number or decimal is pressed
-		// 			handleNumPressed(btnPressed);
-		// 	}
-		// } else if (btnType == "opsBtns") {
-		// 	setOpr(btnPressed);
-		// 	const tempResult = calculate(btnPressed);
-		// 	setDisplayedDigits(tempResult);
-		// 	setArgA(tempResult);
-		// 	setArgB("0");
-		// }
 	};
 
 	const calculate = (btnPressed) => {
@@ -178,20 +166,24 @@ const Calculator = ({}) => {
 				return parseFloat(argA) - parseFloat(argB);
 			case "\u00d7":
 				if ((btnPressed == "\u00d7") & (argB == "0")) return argA;
-				return parseFloat(argA) * parseFloat(argB); // calculating on opsBtn press wrong when B is zero
+				return parseFloat(argA) * parseFloat(argB);
 			case "\u00F7":
 				if ((btnPressed == "\u00F7") & (argB == "0")) return argA;
 				return parseFloat(argA) / parseFloat(argB);
 			default:
 				break;
 		}
-		console.log(parseFloat(argA) + " and " + opr + " @ calculate()");
 	};
 
 	return (
 		<View style={styles.body}>
-			<Text style={{ color: "black" }}>Calculator Component</Text>
-			<SolarCell fadeOut={fadeOut} fadeIn={fadeIn} />
+		    <View style={styles.calculatorTop}>
+                <View style={styles.brandContainer}>
+                    <Text style={styles.brand}>SHEA·R</Text>
+                    <Text style={[styles.brand, styles.brand2]}>sr-2705a</Text>
+                </View>
+			    <SolarCell fadeOut={fadeOut} fadeIn={fadeIn} />
+			</View>
 			<Display
 				digitOpacity={digitOpacity}
 				displayDigits={displayedDigits}
@@ -200,6 +192,7 @@ const Calculator = ({}) => {
 			<Buttons
 				handleOnClear={onAndClear}
 				handleOff={handleOff}
+				handleClearMem={handleClearMem}
 				handleBtnPressed={handleBtnPressed}
 			/>
 		</View>
@@ -208,10 +201,11 @@ const Calculator = ({}) => {
 
 const styles = StyleSheet.create({
 	body: {
-		height: "75%",
+	    flex: 1,
 		width: "90%",
+		marginHorizontal: "10%",
+		marginVertical: "20%",
 		padding: 14,
-		// overflow: "hidden",
 		borderWidth: 1,
 		borderLeftWidth: 5,
 		borderLeftColor: "deepskyblue",
@@ -222,6 +216,22 @@ const styles = StyleSheet.create({
 		borderTopWidth: 1,
 		backgroundColor: "dodgerblue",
 		borderRadius: 10,
+	},
+	calculatorTop: {
+	    flexDirection: "row",
+	},
+	brandContainer: {
+
+	    alignItems: "flex-start",
+	    borderWidth: 1,
+	},
+	brand: {
+		color: "floralwhite",
+		fontFamily: "audWide",
+		fontSize: 30,
+	},
+	brand2: {
+		fontSize: 18,
 	},
 });
 

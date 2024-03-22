@@ -1,4 +1,4 @@
-import { React, useEffect } from "react";
+import { React } from "react";
 import { Text, StyleSheet, View, Animated } from "react-native";
 
 const Display = ({ digitOpacity, displayDigits, mem }) => {
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
 	},
 	bgText: {
 		position: "absolute",
-		right: 3,
+		right: 8,
 		fontSize: 72,
 		fontFamily: "seg7",
 		textAlign: "right",
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
 	},
 	inputText: {
 		position: "absolute",
-		right: 3,
+		right: 8,
 		fontSize: 72,
 		fontFamily: "seg7",
 		textAlign: "right",

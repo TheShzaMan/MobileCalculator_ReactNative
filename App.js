@@ -12,9 +12,9 @@ export default function App() {
 		const loadFonts = async () => {
 			await Font.loadAsync({
 				seg7: require("./assets/Segment7Standard.otf"),
-				arial: require("./assets/ariblk.ttf"),
 				segui: require("./assets/seguibl.ttf"),
 				arial1: require("./assets/arial.ttf"),
+				audWide: require("./assets/Audiowide-Regular.ttf"),
 			});
 			setFontLoaded(true);
 		};
