@@ -1,5 +1,7 @@
 import { React } from "react";
 import { Pressable, StyleSheet, Text } from "react-native";
+import { Dimensions } from 'react-native'; //using for style to get screen width for responsive components
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 export const NumButton = ({ onPress, text }) => {
 	const handlePress = () => {
@@ -19,7 +21,7 @@ export const NumButton = ({ onPress, text }) => {
 					lineHeight: 48,
 					textAlign: "center",
 					fontFamily: "segui",
-					fontSize: 38,
+					fontSize: RFValue(42),
 				}}
 			>
 				{text}
@@ -83,7 +85,7 @@ export const OvalButton = ({
 					textAlign: "center",
 					color: textColor,
 					textTransform: "uppercase",
-					fontSize: 18,
+					fontSize: RFValue(14),
 					fontFamily: "arial1",
 				}}
 			>
@@ -99,11 +101,11 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderColor: "black",
 		padding: 3,
-		height: 55,
-		width: 65,
+		height: Dimensions.get('window').width * 0.14,
+		width: Dimensions.get('window').width * 0.14,
 		justifyContent: "center",
 		margin: 5,
-		flexShrink: 1,
+//		flexShrink: 1,
 	},
 	oval: {
 		height: 25,

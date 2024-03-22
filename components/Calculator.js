@@ -4,6 +4,7 @@ import Buttons from "../components/Buttons";
 import Display from "../components/Display";
 import SolarCell from "./SolarCell";
 import { Dimensions } from 'react-native'; //using for style to get screen width for responsive fontsizes
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 
 const Calculator = ({}) => {
@@ -209,10 +210,11 @@ const styles = StyleSheet.create({
 	body: {
 	    flex: 1,
 		padding: 14,
-		paddingTop: 25,
-		width: "90%",
+		paddingBottom: 5,
+		paddingTop: 20,
+		width: "85%",
 		marginHorizontal: "10%",
-		marginVertical: "20%",
+		marginVertical: "15%",
         justifyContent: 'space-around',
         alignItems: 'center',
 		borderWidth: 1,
@@ -237,10 +239,12 @@ const styles = StyleSheet.create({
 	brand: {
 		color: "floralwhite",
 		fontFamily: "audWide",
-		fontSize: brandFontSize,
+//		fontSize: brandFontSize,
+        fontSize: RFValue(30),
 	},
 	brand2: {
-		fontSize: brandFontSize/1.5,
+//		fontSize: brandFontSize/1.5,
+		fontSize: RFValue(20),
 	},
 });
 

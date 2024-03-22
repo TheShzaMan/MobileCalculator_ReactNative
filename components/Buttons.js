@@ -2,6 +2,7 @@ import { React, useState } from "react";
 import { Text, StyleSheet, View } from "react-native";
 import { Dimensions } from 'react-native'; //using for style to get screen width for responsive fontsizes
 import { NumButton, OvalButton, OpsButton } from "./customButton";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 // style only. getting dynamic fontsize
 const { width } = Dimensions.get('window');
@@ -57,7 +58,7 @@ const Buttons = ({
 				>
 					{advBtns.map((btn, index) => (
 						<OpsButton
-							customStyle={{ fontSize: advFontSize }}
+							customStyle={{ fontSize: RFValue(24) }}
 							text={btn}
 							key={index}
 							id='advBtns'
@@ -73,7 +74,7 @@ const Buttons = ({
 			>
 				{opsBtns.map((btn, index) => (
 					<OpsButton
-						customStyle={{ fontSize: opsFontSize }}
+						customStyle={{ fontSize: RFValue(48) }}
 						text={btn}
 						key={index}
 						onPress={handleBtnPressed}
@@ -87,8 +88,13 @@ const Buttons = ({
 
 const styles = StyleSheet.create({
     btnsContainer:{
+        flex: 1,
+
         alignItems: "center",
-        width: "99%"
+        paddingHorizontal: 0,
+//        justifyContent: "space-around",
+                borderWidth: 1,
+                borderColor: 'white'
     },
     topRow:{
         marginTop: "5%",
@@ -97,23 +103,34 @@ const styles = StyleSheet.create({
     },
     numsOpsAndAdv:{
         flexDirection: "row",
-        justifyContent: "center",
-        width: "105%",
+//        justifyContent: "space-around",
+//        alignItems: "center",
+//        flex: 1,
+        flexWrap:"wrap",
+//        borderWidth: 1,
+//        width: "105%",
     },
     numBtns:{
         flexDirection: "row",
         flexWrap: "wrap",
-        flex: 3,
+        width: Dimensions.get('window').width * 0.51,
+//                borderWidth: 1,
     },
     advBtns:{
         flexDirection: "column",
-        alignSelf: "flex-start",
-        flex: 1,
+        width: Dimensions.get('window').width * 0.18,
+
+//        alignSelf: "flex-start",
+//        borderWidth: 1,
     },
     opsBtns:{
         flexDirection: "row",
-        width: "105%",
-        justifyContent: "space-evenly",
+//        flex: 1,
+        justifyContent: "space-between",
+flexWrap: "wrap",
+alignSelf: "flex-start",
+//    borderWidth: 1,
+//    borderColor: "white",
     },
 })
 export default Buttons;

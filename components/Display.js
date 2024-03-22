@@ -1,5 +1,6 @@
 import { React } from "react";
 import { Text, StyleSheet, View, Animated } from "react-native";
+import { Dimensions } from 'react-native'; //using for style to get screen width for responsive components
 
 const Display = ({ digitOpacity, displayDigits, mem }) => {
 	const formatForDisplay = (numToFormat) => {
@@ -59,7 +60,8 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "flex-end",
 		paddingHorizontal: 5,
-		height: "18%",
+        height: Dimensions.get('window').width * 0.1,
+
 	},
 	bgText: {
 		position: "absolute",
