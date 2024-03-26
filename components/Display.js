@@ -1,6 +1,7 @@
 import { React } from "react";
 import { Text, StyleSheet, View, Animated } from "react-native";
 import { Dimensions } from 'react-native'; //using for style to get screen width for responsive components
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 const Display = ({ digitOpacity, displayDigits, mem }) => {
 	const formatForDisplay = (numToFormat) => {
@@ -30,9 +31,8 @@ const Display = ({ digitOpacity, displayDigits, mem }) => {
 	return (
 		<View style={styles.screen}>
 			<Text id='bgGhostDigits' numberOfLines={1} style={styles.bgText}>
-				8.8.8.8.8.8.8.8.
+				-8.8.8.8.8.8.8.8.
 			</Text>
-			<Text style={mem ? styles.advOn : styles.advOff}>M</Text>
 			<Animated.Text
 				id='digitsDisplay'
 				numberOfLines={1}
@@ -41,6 +41,7 @@ const Display = ({ digitOpacity, displayDigits, mem }) => {
 			>
 				{formatForDisplay(displayDigits)}
 			</Animated.Text>
+			<Text style={mem ? styles.advOn : styles.advOff}>M</Text>
 		</View>
 	);
 };
@@ -60,40 +61,43 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "flex-end",
 		paddingHorizontal: 5,
-        height: Dimensions.get('window').width * 0.1,
+		paddingVertical: 8,
+        height: Dimensions.get('window').width * 0.23,
+        width: '100%',
 
+        flexDirection: 'column',
+        justifyContent: 'space-between',
 	},
 	bgText: {
-		position: "absolute",
-		right: 8,
-		fontSize: 72,
+//		position: "absolute",
+//		right: 8,
+		fontSize: RFValue(52),
 		fontFamily: "seg7",
 		textAlign: "right",
-		color: "#7893",
+		color: "lightsteelblue",
 	},
 	advOn: {
-		color: "#000000",
-		position: "absolute",
-		fontSize: 22,
+		color: "darkslategrey",
+//		position: "absolute",
+		fontSize: RFValue(20),
 		fontFamily: "arial",
-		right: 10,
-		bottom: 1,
 	},
 	advOff: {
-		color: "#7893",
-		position: "absolute",
-		fontSize: 22,
+		color: "lightsteelblue",
+//		position: "absolute",
+		fontSize: RFValue(20),
 		fontFamily: "arial",
-		right: 10,
-		bottom: 1,
+		borderWidth: 1,
 	},
 	inputText: {
 		position: "absolute",
-		right: 8,
-		fontSize: 72,
+		right: 5,
+		top: 8,
+		fontSize: RFValue(52),
 		fontFamily: "seg7",
 		textAlign: "right",
-		color: "#000000",
+		color: "#171717",
+//		zIndex: 2,
 	},
 });
 export default Display;

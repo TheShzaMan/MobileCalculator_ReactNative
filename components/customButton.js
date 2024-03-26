@@ -75,7 +75,7 @@ export const OvalButton = ({
 			onLongPress={onLongPress}
 			onPress={onPress}
 			style={({ pressed }) => [
-				{ backgroundColor: pressed ? "gray" : "floralwhite" },
+				{ backgroundColor: pressed ? "darkred" : bgColor },
 				styles.round,
 				styles.oval,
 			]}
@@ -86,7 +86,7 @@ export const OvalButton = ({
 					color: textColor,
 					textTransform: "uppercase",
 					fontSize: RFValue(14),
-					fontFamily: "arial1",
+					fontFamily: "segui",
 				}}
 			>
 				{text}
@@ -100,15 +100,14 @@ const styles = StyleSheet.create({
 		borderRadius: 50,
 		borderWidth: 1,
 		borderColor: "black",
-		padding: 3,
+//		padding: 3,
 		height: Dimensions.get('window').width * 0.14,
 		width: Dimensions.get('window').width * 0.14,
 		justifyContent: "center",
-		margin: 5,
-//		flexShrink: 1,
+		alignItems: 'center',
+		margin:Dimensions.get('window').width * 0.015,
 	},
 	oval: {
-		height: 25,
-		backgroundColor: "red",
+		height: Dimensions.get('window').width * 0.07,
 	},
 });

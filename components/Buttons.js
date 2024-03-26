@@ -40,47 +40,47 @@ const Buttons = ({
 				id='numsOpsAndAdv'
 				style={styles.numsOpsAndAdv}
 			>
-				<View
-					id='numBtns'
-					style={styles.numBtns}
-				>
-					{numsBtns.map((num, index) => (
-						<NumButton
-							text={num}
-							key={index}
-							onPress={handleBtnPressed}
-						/>
-					))}
-				</View>
-				<View
-					id='advBtns'
-					style={styles.advBtns}
-				>
-					{advBtns.map((btn, index) => (
-						<OpsButton
-							customStyle={{ fontSize: RFValue(24) }}
-							text={btn}
-							key={index}
-							id='advBtns'
-							onPress={handleBtnPressed}
-							onLongPress={handleClearMem}
-						/>
-					))}
-				</View>
-			</View>
-			<View
-				id='opsBtns'
-				style={styles.opsBtns}
-			>
-				{opsBtns.map((btn, index) => (
-					<OpsButton
-						customStyle={{ fontSize: RFValue(48) }}
-						text={btn}
-						key={index}
-						onPress={handleBtnPressed}
-						id={"opsBtns"}
-					/>
-				))}
+                    <View
+                        id='numBtns'
+                        style={styles.numBtns}
+                    >
+                        {numsBtns.map((num, index) => (
+                            <NumButton
+                                text={num}
+                                key={index}
+                                onPress={handleBtnPressed}
+                            />
+                        ))}
+                    </View>
+                    <View
+                        id='advBtns'
+                        style={styles.advBtns}
+                    >
+                        {advBtns.map((btn, index) => (
+                            <OpsButton
+                                customStyle={{ fontSize: RFValue(24) }}
+                                text={btn}
+                                key={index}
+                                id='advBtns'
+                                onPress={handleBtnPressed}
+                                onLongPress={handleClearMem}
+                            />
+                        ))}
+                    </View>
+                <View
+                    id='opsBtns'
+                    style={styles.opsBtns}
+                >
+                    {opsBtns.map((btn, index) => (
+                        <OpsButton
+                            customStyle={{ fontSize: RFValue(48) }}
+                            text={btn}
+                            key={index}
+                            onPress={handleBtnPressed}
+                            id={"opsBtns"}
+                        />
+                    ))}
+                </View>
 			</View>
 		</View>
 	);
@@ -89,46 +89,56 @@ const Buttons = ({
 const styles = StyleSheet.create({
     btnsContainer:{
         flex: 1,
-
+        width: '100%',
         alignItems: "center",
-        paddingHorizontal: 0,
+//        paddingTop: '5%',
 //        justifyContent: "space-around",
-                borderWidth: 1,
-                borderColor: 'white'
+//                borderWidth: 1,
+//                borderColor: 'white'
     },
     topRow:{
         marginTop: "5%",
-        height: "10%",
+        marginBottom: '2%',
+        marginLeft: "1%",
         alignSelf: "flex-start",
     },
     numsOpsAndAdv:{
         flexDirection: "row",
-//        justifyContent: "space-around",
+        justifyContent: "start",
 //        alignItems: "center",
-//        flex: 1,
+        flex: 1,
         flexWrap:"wrap",
 //        borderWidth: 1,
-//        width: "105%",
     },
     numBtns:{
         flexDirection: "row",
         flexWrap: "wrap",
-        width: Dimensions.get('window').width * 0.51,
+//        rowGap: '5%',
+        width: Dimensions.get('window').width * 0.55,
+        justifyContent: 'space-between',
+        paddingLeft: '1%',
+
 //                borderWidth: 1,
     },
     advBtns:{
         flexDirection: "column",
-        width: Dimensions.get('window').width * 0.18,
-
-//        alignSelf: "flex-start",
+        width: Dimensions.get('window').width * 0.20,
+        justifyContent: "center",
+        alignItems: "flex-end",
 //        borderWidth: 1,
+        paddingRight: '2%',
+
     },
     opsBtns:{
         flexDirection: "row",
 //        flex: 1,
         justifyContent: "space-between",
-flexWrap: "wrap",
-alignSelf: "flex-start",
+        width: Dimensions.get('window').width * 0.75,
+        paddingRight: '2%',
+        paddingLeft: '1%',
+
+//        flexWrap: "wrap",
+//        alignSelf: "center",
 //    borderWidth: 1,
 //    borderColor: "white",
     },

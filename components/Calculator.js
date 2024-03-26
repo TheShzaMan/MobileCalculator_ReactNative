@@ -202,19 +202,24 @@ const Calculator = ({}) => {
 	);
 };
     // style only. getting dynamic fontsize
-    const { width } = Dimensions.get('window');
+    const { width, height } = Dimensions.get('window');
     const brandFontSize = width * 0.08;
 
+    const baseAspectRatio = 0.65;
+    const calculatorWidth = width * 0.85;
+    const calculatorHeight = calculatorWidth * baseAspectRatio;
+
+    const maxHeight = height * 0.75;
+    const minHeight = height * 0.3;
 
 const styles = StyleSheet.create({
 	body: {
 	    flex: 1,
-		padding: 14,
-		paddingBottom: 5,
-		paddingTop: 20,
+		//padding: 14,
+		padding: RFPercentage(2),
 		width: "85%",
-		marginHorizontal: "10%",
-		marginVertical: "15%",
+		marginHorizontal: "7.5",
+//		marginVertical: RFPercentage(15),
         justifyContent: 'space-around',
         alignItems: 'center',
 		borderWidth: 1,
@@ -227,6 +232,9 @@ const styles = StyleSheet.create({
 		borderTopWidth: 1,
 		backgroundColor: "dodgerblue",
 		borderRadius: 10,
+		height: calculatorHeight,
+        maxHeight: maxHeight,
+        minHeight: minHeight,
 	},
 	calculatorTop: {
 	    flexDirection: "row",
