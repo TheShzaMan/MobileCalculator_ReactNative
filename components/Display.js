@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
 //		position: "absolute",
 		fontSize: RFValue(20),
 		fontFamily: "arial",
-		borderWidth: 1,
+//		borderWidth: 1,
 	},
 	inputText: {
 		position: "absolute",

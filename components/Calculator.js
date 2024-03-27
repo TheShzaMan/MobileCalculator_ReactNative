@@ -209,14 +209,14 @@ const Calculator = ({}) => {
     const calculatorWidth = width * 0.85;
     const calculatorHeight = calculatorWidth * baseAspectRatio;
 
-    const maxHeight = height * 0.75;
-    const minHeight = height * 0.3;
+    const maxHeight = height * 0.76;
+    const minHeight = height * 0.65;
 
 const styles = StyleSheet.create({
 	body: {
 	    flex: 1,
 		//padding: 14,
-		padding: RFPercentage(2),
+		padding: RFPercentage(1),
 		width: "85%",
 		marginHorizontal: "7.5",
 //		marginVertical: RFPercentage(15),

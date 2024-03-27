@@ -3,6 +3,8 @@ import { Pressable, StyleSheet, Text } from "react-native";
 import { Dimensions } from 'react-native'; //using for style to get screen width for responsive components
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
+const screenWidth = Dimensions.get('window').width;
+
 export const NumButton = ({ onPress, text }) => {
 	const handlePress = () => {
 		let id = "numBtns";
@@ -18,10 +20,10 @@ export const NumButton = ({ onPress, text }) => {
 		>
 			<Text
 				style={{
-					lineHeight: 48,
+					lineHeight: RFValue(46),
 					textAlign: "center",
 					fontFamily: "segui",
-					fontSize: RFValue(42),
+					fontSize: RFValue(38),
 				}}
 			>
 				{text}
@@ -30,27 +32,32 @@ export const NumButton = ({ onPress, text }) => {
 	);
 };
 
-export const OpsButton = ({ onPress, onLongPress, text, customStyle, id }) => {
+export const OpsButton = ({ onPress, onLongPress, text, id }) => {
 	const handlePress = () => {
 		onPress(text, id);
 	};
 	const handleLongPress = () => {
 		onLongPress(text);
 	};
+	const opsStyle = {
+	    ...(id === 'advBtns'
+	        ? {fontSize: RFValue(20), lineHeight: RFValue(22)}
+	        : {fontSize: RFValue(38), lineHeight: RFValue(40)}
+        ),
+	}
 	return (
 		<Pressable
 			onLongPress={handleLongPress}
 			onPressOut={handlePress}
 			style={({ pressed }) => [
-				{ backgroundColor: pressed ? "gray" : "black" },
+				{ backgroundColor: pressed ? "gray" : "black",},
 				styles.round,
 			]}
 		>
 			<Text
 				style={[
-					customStyle,
+					opsStyle,
 					{
-						lineHeight: 48,
 						textAlign: "center",
 						color: "floralwhite",
 						fontFamily: "segui",
@@ -97,17 +104,22 @@ export const OvalButton = ({
 
 const styles = StyleSheet.create({
 	round: {
-		borderRadius: 50,
+		borderRadius: screenWidth * 0.1,
+		//borderRadius: 50,
 		borderWidth: 1,
 		borderColor: "black",
-//		padding: 3,
-		height: Dimensions.get('window').width * 0.14,
-		width: Dimensions.get('window').width * 0.14,
 		justifyContent: "center",
 		alignItems: 'center',
-		margin:Dimensions.get('window').width * 0.015,
+		margin:screenWidth * 0.015,
+		height: screenWidth * 0.14,
+		width: screenWidth * 0.14,
+//		padding: Dimensions.get('window').width *0.02,
+	},
+	advRound: {
+	    fontSize: RFValue(14),
 	},
 	oval: {
-		height: Dimensions.get('window').width * 0.07,
+		height: screenWidth * 0.07,
+//		padding: 0,
 	},
 });
