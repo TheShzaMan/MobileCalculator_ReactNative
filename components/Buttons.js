@@ -16,7 +16,7 @@ const Buttons = ({
 	handleBtnPressed,
 }) => {
 	const opsBtns = ["+", "-", "\u00d7", "\u00F7"];
-	const numsBtns = [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, "·", "="];
+	const numsBtns = [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, ".", "="];
 	const advBtns = ["del", "MRC", "M+", "%"];
 
 

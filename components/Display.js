@@ -27,27 +27,54 @@ const Display = ({ digitOpacity, displayDigits, mem }) => {
 			)}`;
 		}
 	};
-	console.log(formatForDisplay(displayDigits) + ": displayDigits @Display");
+
+
+
 	return (
 		<View style={styles.screen}>
-			<Text id='bgGhostDigits' numberOfLines={1} style={styles.bgText}>
-				-8.8.8.8.8.8.8.8.
-			</Text>
-			<Animated.Text
-				id='digitsDisplay'
-				numberOfLines={1}
-				ellipsizeMode='clip'
-				style={[styles.inputText, { opacity: digitOpacity }]}
-			>
-				{formatForDisplay(displayDigits)}
-			</Animated.Text>
-			<Text style={mem ? styles.advOn : styles.advOff}>M</Text>
+		    <View style={styles.displayArea}>
+                <Text id='bgGhostDigits' numberOfLines={1} style={[styles.bgText, {fontSize: fontSize}]}>
+                    -8.8.8.8.8.8.8.8.
+                </Text>
+                <Animated.Text
+                    id='digitsDisplay'
+                    numberOfLines={1}
+                    ellipsizeMode='clip'
+                    style={[styles.inputText, { opacity: digitOpacity, fontSize: fontSize, }
+                    ]}
+                >
+                    {formatForDisplay(displayDigits)}
+                </Animated.Text>
+			</View>
+{/*			<Text style={mem ? styles.advOn : styles.advOff}>M</Text>*/}
+            <Animated.Text style={[
+                styles.memoryIndicator, {
+                opacity: digitOpacity,
+                fontSize: RFValue(memoryFontSize),
+                color: mem ? '#171717' : 'lightsteelblue',
+            }]}> M
+            </Animated.Text>
 		</View>
 	);
 };
+	const screenWidth = Dimensions.get('window').width
+	const calculatorWidth = screenWidth * 0.85;
+	const displayAreaWidth = calculatorWidth * 0.90;
+//	const baseAspectRatio = 0.22;
+	const baseAspectRatio = 0.17;
 
+	const fontSize = displayAreaWidth * baseAspectRatio;
+	const memoryFontSize = calculatorWidth * 0.05;
+console.log(fontSize);
 const styles = StyleSheet.create({
 	screen: {
+//	    flexDirection: 'row',
+		justifyContent: "center",
+		alignItems: 'center',
+		padding: 10,
+		paddingBottom: 0,
+		width: displayAreaWidth,
+		marginTop: calculatorWidth * 0.05,
 		borderWidth: 1,
 		borderLeftColor: "gray",
 		borderLeftWidth: 8,
@@ -58,46 +85,55 @@ const styles = StyleSheet.create({
 		borderRightColor: "lightsteelblue",
 		borderRightWidth: 2,
 		backgroundColor: "lightgray",
-		justifyContent: "center",
-		alignItems: "flex-end",
-		paddingHorizontal: 5,
-		paddingVertical: 8,
-        height: Dimensions.get('window').width * 0.23,
-        width: '100%',
-
-        flexDirection: 'column',
-        justifyContent: 'space-between',
+	},
+	displayArea: {
+	    justifyContent: 'center',
+	    alignItems: 'flex-end',
+	    position: 'relative',
+		width: displayAreaWidth * 0.95,
+//        width: '90%',
+        borderWidth: 1,
+        borderColor: 'white',
+        height: calculatorWidth * 0.12,
 	},
 	bgText: {
-//		position: "absolute",
+		position: "absolute",
 //		right: 8,
-		fontSize: RFValue(52),
+//		fontSize: RFValue(60),
 		fontFamily: "seg7",
 		textAlign: "right",
 		color: "lightsteelblue",
-	},
-	advOn: {
-		color: "darkslategrey",
-//		position: "absolute",
-		fontSize: RFValue(20),
-		fontFamily: "arial",
-	},
-	advOff: {
-		color: "lightsteelblue",
-//		position: "absolute",
-		fontSize: RFValue(20),
-		fontFamily: "arial",
-//		borderWidth: 1,
+//		color: "#E0E0E0",
+//        right: 0,
 	},
 	inputText: {
 		position: "absolute",
-		right: 5,
-		top: 8,
-		fontSize: RFValue(52),
+//		fontSize: RFValue(60),
 		fontFamily: "seg7",
-		textAlign: "right",
 		color: "#171717",
-//		zIndex: 2,
+		textAlign: "right",
+//        right: 0,
 	},
+	memoryIndicator: {
+	    fontFamily: 'Arial',
+	    alignSelf: 'flex-end',
+	},
+//	advOn: {
+//		color: "#171717",
+//		position: "absolute",
+////		fontSize: RFValue(20),
+//		fontFamily: "arial",
+//		top: 25,
+//		right: 5,
+//	},
+//	advOff: {
+//		color: "#E0E0E0",
+//		position: "absolute",
+////		fontSize: RFValue(20),
+//		fontFamily: "arial",
+//		top: 45,
+//        right: 5,
+////		borderWidth: 1,
+//	},
 });
 export default Display;

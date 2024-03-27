@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Pressable } from "react-native";
+import { Dimensions } from 'react-native'; //using for style to get screen width for responsive fontsizes
 
 export default function SolarCell({ fadeOut, fadeIn }) {
 	return (
@@ -10,6 +11,9 @@ export default function SolarCell({ fadeOut, fadeIn }) {
 		</Pressable>
 	);
 }
+    const marginSm = Dimensions.get('window').width * 0.015;
+    const marginMd = Dimensions.get('window').width * 0.04;
+
 const styles = StyleSheet.create({
 	cell: {
 		borderLeftWidth: 8,
@@ -23,8 +27,9 @@ const styles = StyleSheet.create({
 		borderRightColor: "lightsteelblue",
 		flex: 1,
 		flexDirection: "row",
-		marginLeft: "5%",
-		marginVertical: "3%",
+//		marginHorizontal: "5%",
+		margin: marginSm,
+		marginLeft: marginMd,
 
 //		width: "50%",
 //		alignSelf: "flex-end",

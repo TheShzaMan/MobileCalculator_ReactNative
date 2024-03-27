@@ -50,7 +50,7 @@ export const OpsButton = ({ onPress, onLongPress, text, id }) => {
 			onLongPress={handleLongPress}
 			onPressOut={handlePress}
 			style={({ pressed }) => [
-				{ backgroundColor: pressed ? "gray" : "black",},
+				{ backgroundColor: pressed ? "gray" : "black"},
 				styles.round,
 			]}
 		>

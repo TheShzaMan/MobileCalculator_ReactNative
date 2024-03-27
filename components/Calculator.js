@@ -60,39 +60,40 @@ const Calculator = ({}) => {
 	};
 
 	const handleClearMem = (btnPressed) => {
-		btnPressed == "R·CM" && setMem();
+		btnPressed == "MRC" && setMem();
 	};
 
 	const handleNumPressed = (btnPressed) => {
-		if (opr == null) {
-			// oprBtn has not been pressed since clear
-			if (argA === "0") {
-				setArgA(btnPressed.toString());
-				setDisplayedDigits(btnPressed.toString());
-			} else {
-				if ((btnPressed == ".") & argA.includes(".")) {
-				} else {
-					setArgA((prevA) => {
-						const updatedA = prevA + btnPressed.toString();
-						setDisplayedDigits(updatedA);
-						return updatedA;
-					});
-				}
-			}
-		} else {
-			//  oprBtn has been pushed at least once.
-			if (argB == "0") {
-				setArgB(btnPressed.toString());
-				setDisplayedDigits(btnPressed.toString());
-			} else {
-				setArgB((prevB) => {
-					const updatedB = prevB + btnPressed.toString();
-					setDisplayedDigits(updatedB);
-					return updatedB;
-				});
-			}
-		}
-	};
+        if (opr == null) {
+            // oprBtn has not been pressed since clear
+            if (argA === "0") {
+                setArgA(btnPressed.toString());
+                setDisplayedDigits(btnPressed.toString());
+            } else {
+                if ((btnPressed == ".") & argA.includes(".")) {
+                } else {
+                    setArgA((prevA) => {
+                        const updatedA = prevA + btnPressed.toString();
+                        setDisplayedDigits(updatedA);
+                        return updatedA;
+                    });
+                }
+            }
+        } else {
+            //  oprBtn has been pushed at least once.
+            if (argB == "0") {
+                setArgB(btnPressed.toString());
+                setDisplayedDigits(btnPressed.toString());
+            } else {
+                setArgB((prevB) => {
+                    const updatedB = prevB + btnPressed.toString();
+                    setDisplayedDigits(updatedB);
+                    return updatedB;
+                });
+            }
+        }
+    };
+
 
 	const handleAdvBtns = (button) => {
 		switch (button) {
@@ -182,8 +183,8 @@ const Calculator = ({}) => {
 		<View style={styles.body}>
 		    <View style={styles.calculatorTop}>
                 <View style={styles.brandContainer}>
-                    <Text style={styles.brand}>SHEA·R</Text>
-                    <Text style={[styles.brand, styles.brand2]}>sr-2705a</Text>
+                    <Text style={[styles.brand, {fontSize: brandFontSize}]}>SHEA·R</Text>
+                    <Text style={[styles.brand, {fontSize: brandFontSize * 0.7}]}>sr-2705a</Text>
                 </View>
 			    <SolarCell fadeOut={fadeOut} fadeIn={fadeIn} />
 			</View>
@@ -201,24 +202,26 @@ const Calculator = ({}) => {
 		</View>
 	);
 };
-    // style only. getting dynamic fontsize
+    // style only. getting dynamic fontsize and responsive calculator dimensions
     const { width, height } = Dimensions.get('window');
     const brandFontSize = width * 0.08;
 
     const baseAspectRatio = 0.65;
     const calculatorWidth = width * 0.85;
     const calculatorHeight = calculatorWidth * baseAspectRatio;
-
-    const maxHeight = height * 0.76;
-    const minHeight = height * 0.65;
+//console.log(1 / (calculatorWidth / calculatorHeight));
+    const maxHeight = width * 1.46;
+    const minHeight = width * 1.43;
 
 const styles = StyleSheet.create({
 	body: {
 	    flex: 1,
 		//padding: 14,
 		padding: RFPercentage(1),
-		width: "85%",
-		marginHorizontal: "7.5",
+		width: calculatorWidth,
+		height: calculatorHeight,
+        maxHeight: maxHeight,
+        minHeight: minHeight,
 //		marginVertical: RFPercentage(15),
         justifyContent: 'space-around',
         alignItems: 'center',
@@ -232,12 +235,10 @@ const styles = StyleSheet.create({
 		borderTopWidth: 1,
 		backgroundColor: "dodgerblue",
 		borderRadius: 10,
-		height: calculatorHeight,
-        maxHeight: maxHeight,
-        minHeight: minHeight,
 	},
 	calculatorTop: {
 	    flexDirection: "row",
+
 	},
 	brandContainer: {
 	    alignItems: "flex-start",
@@ -248,12 +249,12 @@ const styles = StyleSheet.create({
 		color: "floralwhite",
 		fontFamily: "audWide",
 //		fontSize: brandFontSize,
-        fontSize: RFValue(30),
+//        fontSize: RFValue(30),
 	},
-	brand2: {
-//		fontSize: brandFontSize/1.5,
-		fontSize: RFValue(20),
-	},
+//	brand2: {
+////		fontSize: brandFontSize/1.5,
+//		fontSize: RFValue(20),
+//	},
 });
-
 export default Calculator;
+
